@@ -1,4 +1,4 @@
-import { ImageWithFallback } from "./figma/image-with-fallback";
+import { PageTurnImage } from "./page-turn-image";
 
 export function RecruitSection() {
   return (
@@ -24,10 +24,10 @@ export function RecruitSection() {
 
           <div className="relative">
             <div className="rounded-2xl overflow-hidden shadow-2xl">
-              <ImageWithFallback
+              <PageTurnImage
                 src="https://images.unsplash.com/photo-1610618292314-e55c7ac33485?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwZXJzb24lMjBzaWxob3VldHRlJTIwbXlzdGljYWwlMjBsaWdodHxlbnwxfHx8fDE3NjI0Mzg0NTR8MA&ixlib=rb-4.1.0&q=80&w=1080"
                 alt="Recruit"
-                className="w-full h-[400px] md:h-[500px] object-cover"
+                className="w-full h-[400px] md:h-[500px]"
               />
             </div>
           </div>

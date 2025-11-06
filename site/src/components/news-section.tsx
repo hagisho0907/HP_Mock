@@ -1,4 +1,4 @@
-import { ImageWithFallback } from "./figma/image-with-fallback";
+import { PageTurnImage } from "./page-turn-image";
 
 const newsItems = [
   {
@@ -45,10 +45,10 @@ export function NewsSection() {
               className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow cursor-pointer"
             >
               <div className="aspect-video overflow-hidden">
-                <ImageWithFallback
+                <PageTurnImage
                   src={item.image}
                   alt={item.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full"
                 />
               </div>
               <div className="p-6">

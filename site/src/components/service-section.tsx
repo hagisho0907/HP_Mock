@@ -1,4 +1,4 @@
-import { ImageWithFallback } from "./figma/image-with-fallback";
+import { PageTurnImage } from "./page-turn-image";
 
 const services = [
   {
@@ -37,10 +37,10 @@ export function ServiceSection() {
               className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
             >
               <div className="aspect-[4/3] overflow-hidden">
-                <ImageWithFallback
+                <PageTurnImage
                   src={service.image}
                   alt={service.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  className="w-full h-full hover:scale-105 transition-transform duration-300"
                 />
               </div>
               <div className="p-6">

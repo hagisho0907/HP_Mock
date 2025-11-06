@@ -25,7 +25,7 @@ export function AboutSection() {
                   <td className="py-6">
                     体験型・没入型コンテンツのプロデュース・企画・制作
                     <br />
-                    体験型プロダクトの開発・空間設計・R&amp;D
+                    体験型プロダクトの開発・空間設計・R&D
                     <br />
                     体験型イベントの運営・IPビジネス開発
                   </td>
@@ -34,9 +34,6 @@ export function AboutSection() {
             </table>
           </div>
 
-          <div className="border-2 border-pink-500 px-8 py-4 lg:mb-8">
-            <p className="text-white text-xl md:text-2xl whitespace-nowrap">新しい感動体験を</p>
-          </div>
         </div>
       </div>
     </section>
