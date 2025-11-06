@@ -1,4 +1,5 @@
-import { PageTurnImage } from "./page-turn-image";
+import { ImageWithFallback } from "./figma/image-with-fallback";
+import { AnimatedSection } from "./animated-section";
 
 const newsItems = [
   {
@@ -28,34 +29,39 @@ export function NewsSection() {
   return (
     <section id="news" className="relative bg-gray-50 py-20 px-6">
       <div className="container mx-auto max-w-7xl">
-        <div className="flex items-start justify-between mb-12">
-          <h2 className="text-6xl md:text-7xl lg:text-8xl">NEWS</h2>
-          <a
-            href="#news"
-            className="inline-flex items-center gap-2 text-sm tracking-wider hover:opacity-70 transition-opacity mt-4"
-          >
-            VIEW MORE <span>{">"}</span>
-          </a>
-        </div>
+        <AnimatedSection animation="fadeUp">
+          <div className="flex items-start justify-between mb-12">
+            <h2 className="text-6xl md:text-7xl lg:text-8xl">NEWS</h2>
+            <a
+              href="#news"
+              className="inline-flex items-center gap-2 text-sm tracking-wider hover:opacity-70 transition-opacity mt-4 glow-on-hover"
+            >
+              VIEW MORE <span>{">"}</span>
+            </a>
+          </div>
+        </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {newsItems.map((item) => (
-            <article
+          {newsItems.map((item, index) => (
+            <AnimatedSection 
               key={item.id}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow cursor-pointer"
+              animation="fadeUp"
+              delay={index * 200}
             >
-              <div className="aspect-video overflow-hidden">
-                <PageTurnImage
-                  src={item.image}
-                  alt={item.title}
-                  className="w-full h-full"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="mb-3 leading-snug">{item.title}</h3>
-                <p className="text-gray-500 text-sm">{item.date}</p>
-              </div>
-            </article>
+              <article className="bg-white rounded-2xl overflow-hidden shadow-md hover-lift cursor-pointer">
+                <div className="aspect-video overflow-hidden image-overlay">
+                  <ImageWithFallback
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-full object-cover hover-zoom"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="mb-3 leading-snug">{item.title}</h3>
+                  <p className="text-gray-500 text-sm">{item.date}</p>
+                </div>
+              </article>
+            </AnimatedSection>
           ))}
         </div>
       </div>

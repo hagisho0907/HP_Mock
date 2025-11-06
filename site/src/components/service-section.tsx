@@ -1,4 +1,5 @@
-import { PageTurnImage } from "./page-turn-image";
+import { ImageWithFallback } from "./figma/image-with-fallback";
+import { AnimatedSection } from "./animated-section";
 
 const services = [
   {
@@ -28,26 +29,31 @@ export function ServiceSection() {
   return (
     <section id="service" className="relative bg-white py-20 px-6">
       <div className="container mx-auto max-w-7xl">
-        <h2 className="text-6xl md:text-7xl lg:text-8xl mb-16">SERVICE</h2>
+        <AnimatedSection animation="fadeUp">
+          <h2 className="text-6xl md:text-7xl lg:text-8xl mb-16">SERVICE</h2>
+        </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {services.map((service) => (
-            <article
+          {services.map((service, index) => (
+            <AnimatedSection
               key={service.id}
-              className="bg-white rounded-2xl overflow-hidden hover:shadow-xl transition-shadow cursor-pointer"
+              animation="fadeUp"
+              delay={index * 200}
             >
-              <div className="aspect-[4/3] overflow-hidden">
-                <PageTurnImage
-                  src={service.image}
-                  alt={service.title}
-                  className="w-full h-full hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              <div className="p-6">
-                <h3 className="mb-3">{service.title}</h3>
-                <p className="text-gray-600 text-sm">{service.description}</p>
-              </div>
-            </article>
+              <article className="bg-white rounded-2xl overflow-hidden hover-lift cursor-pointer">
+                <div className="aspect-[4/3] overflow-hidden image-overlay">
+                  <ImageWithFallback
+                    src={service.image}
+                    alt={service.title}
+                    className="w-full h-full object-cover hover-zoom"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="mb-3">{service.title}</h3>
+                  <p className="text-gray-600 text-sm">{service.description}</p>
+                </div>
+              </article>
+            </AnimatedSection>
           ))}
         </div>
       </div>
