@@ -1,6 +1,12 @@
+'use client';
+
+import { useState, useMemo } from 'react';
 import { AdBanner } from "@/components/ad-banner";
 import { ContactSection } from "@/components/contact-section";
 import { Header } from "@/components/header";
+import { WorksCard } from "@/components/works-card";
+import { AnimatedSection } from "@/components/animated-section";
+import { WorksFilter } from "@/components/works-filter";
 
 const worksItems = [
   {
@@ -69,6 +75,29 @@ const worksItems = [
 ];
 
 export default function WorksPage() {
+  const [currentFilter, setCurrentFilter] = useState('all');
+
+  const filteredWorks = useMemo(() => {
+    if (currentFilter === 'all') return worksItems;
+    
+    return worksItems.filter(work => {
+      switch (currentFilter) {
+        case '2025':
+          return work.date.startsWith('2025');
+        case '2024':
+          return work.date.startsWith('2024');
+        case 'theater':
+          return work.title.includes('シアター') || work.title.includes('舞台') || work.title.includes('AGASA');
+        case 'exhibition':
+          return work.title.includes('展') || work.title.includes('記念');
+        case 'event':
+          return work.title.includes('イベント') || work.title.includes('フェス') || work.title.includes('配信');
+        default:
+          return true;
+      }
+    });
+  }, [currentFilter]);
+
   return (
     <div
       className="relative min-h-screen"
@@ -84,37 +113,42 @@ export default function WorksPage() {
       <main className="flex flex-col gap-0">
         <section className="relative h-[40vh] md:h-[50vh] flex items-center px-6">
           <div className="container mx-auto max-w-7xl relative z-10">
-            <h1 className="text-white text-6xl md:text-7xl lg:text-8xl">WORKS</h1>
+            <AnimatedSection animation="fadeUp">
+              <h1 className="text-white text-6xl md:text-7xl lg:text-8xl">WORKS</h1>
+            </AnimatedSection>
           </div>
         </section>
 
         <section className="relative bg-white py-20 px-6">
           <div className="container mx-auto max-w-7xl">
-            <h2 className="text-3xl md:text-4xl mb-16 text-center">すべての記事一覧</h2>
+            <AnimatedSection animation="fadeUp">
+              <h2 className="text-3xl md:text-4xl mb-8 text-center">すべての記事一覧</h2>
+            </AnimatedSection>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-              {worksItems.map((work) => (
-                <article
-                  key={work.id}
-                  className="bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow cursor-pointer"
-                >
-                  <div
-                    className="h-56 bg-cover bg-center"
-                    style={{ backgroundImage: `url(${work.image})` }}
-                  />
-                  <div className="p-6">
-                    <h3 className="mb-4 line-clamp-2">{work.title}</h3>
-                    <p className="text-gray-500 text-sm">{work.date}</p>
-                  </div>
-                </article>
+            <AnimatedSection animation="fadeUp" delay={200}>
+              <WorksFilter 
+                currentFilter={currentFilter}
+                onFilterChange={setCurrentFilter}
+              />
+            </AnimatedSection>
+
+            <div className="works-grid mb-16">
+              {filteredWorks.map((work, index) => (
+                <WorksCard
+                  key={`${work.id}-${currentFilter}`}
+                  work={work}
+                  index={index}
+                />
               ))}
             </div>
 
-            <div className="text-center">
-              <button className="bg-black text-white px-10 py-4 rounded-md hover:bg-gray-800 transition-colors">
-                もっと読む +
-              </button>
-            </div>
+            <AnimatedSection animation="fadeUp" delay={600}>
+              <div className="text-center">
+                <button className="bg-black text-white px-10 py-4 rounded-md hover:bg-gray-800 transition-all duration-300 hover:scale-105 hover:shadow-lg">
+                  もっと読む +
+                </button>
+              </div>
+            </AnimatedSection>
           </div>
         </section>
 
