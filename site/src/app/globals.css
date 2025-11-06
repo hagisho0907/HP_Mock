@@ -206,25 +206,21 @@ html {
   display: block;
   transform-origin: left center;
   animation: image-page-turn 0.9s cubic-bezier(0.32, 0.72, 0.28, 0.99) forwards;
-  will-change: transform, filter;
+  will-change: transform;
   backface-visibility: hidden;
 }
 
 @keyframes image-page-turn {
   0% {
-    transform: rotateY(0deg) translateX(0);
-    filter: brightness(1);
+    transform: perspective(1100px) rotateY(-14deg) translateX(-3%);
   }
   35% {
-    transform: rotateY(-22deg) translateX(4%);
-    filter: brightness(1.05);
+    transform: perspective(1100px) rotateY(-8deg) translateX(-2%);
   }
   60% {
-    transform: rotateY(-12deg) translateX(2%);
-    filter: brightness(1.02);
+    transform: perspective(1100px) rotateY(-4deg) translateX(-1%);
   }
   100% {
-    transform: rotateY(0deg) translateX(0);
-    filter: brightness(1);
+    transform: perspective(1100px) rotateY(0deg) translateX(0);
   }
 }
