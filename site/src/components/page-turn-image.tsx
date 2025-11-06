@@ -20,7 +20,7 @@ export function PageTurnImage({ src, alt, className = '' }: PageTurnImageProps) 
     // アニメーション終了後にローディングを完了
     setTimeout(() => {
       setIsLoading(false);
-    }, 1200); // page-turnアニメーションの時間と合わせる
+    }, 900); // image-page-turnアニメーションの時間と合わせる
   };
 
   return (
@@ -29,14 +29,9 @@ export function PageTurnImage({ src, alt, className = '' }: PageTurnImageProps) 
       <ImageWithFallback
         src={src}
         alt={alt}
-        className="w-full h-full object-cover"
+        className={`w-full h-full object-cover ${showPageTurn && !isLoading ? 'image-page-turn' : ''}`}
         onLoad={handleImageLoad}
       />
-      
-      {/* ページめくりエフェクト */}
-      {isLoading && showPageTurn && (
-        <div className="page-turn-sheet" />
-      )}
       
       {/* ローディング中の背景 */}
       {isLoading && !showPageTurn && (
