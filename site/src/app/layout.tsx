@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Noto_Sans_JP } from "next/font/google";
 import "./globals.css";
-import { PageTurnOverlay } from "@/components/page-turn-overlay";
 
 const notoSans = Noto_Sans_JP({
   subsets: ["latin"],
@@ -23,7 +22,6 @@ export default function RootLayout({
   return (
     <html lang="ja">
       <body className={notoSans.className}>
-        <PageTurnOverlay />
         {children}
       </body>
     </html>
