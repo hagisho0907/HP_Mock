@@ -118,15 +118,15 @@ export function NewsSection() {
                   animation="fadeUp"
                   delay={index * 120}
                 >
-                  <article className="group cursor-pointer">
-                    <div className="relative overflow-hidden rounded-[32px] bg-gray-100">
+                  <article className="group flex h-full min-h-[520px] flex-col cursor-pointer md:min-h-[560px]">
+                    <div className="relative aspect-[4/3] overflow-hidden rounded-[32px] bg-gray-100">
                       <ImageWithFallback
                         src={item.image}
                         alt={item.title}
                         className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                       />
                     </div>
-                    <div className="mt-6 space-y-3">
+                    <div className="mt-6 flex flex-1 flex-col space-y-3">
                       <div className="flex flex-wrap items-center gap-3 text-sm">
                         <span className="font-semibold tracking-wide">
                           {item.date}
@@ -138,7 +138,7 @@ export function NewsSection() {
                       <h3 className="text-2xl font-medium leading-snug text-gray-900">
                         {item.title}
                       </h3>
-                      <p className="text-sm leading-relaxed text-gray-500">
+                      <p className="mt-auto text-sm leading-relaxed text-gray-500">
                         {item.description}
                       </p>
                     </div>
