@@ -61,7 +61,10 @@ export function NewsSection() {
       : newsItems.filter((item) => item.category === selectedCategory);
 
   return (
-    <section id="news" className="relative bg-white py-24 px-4 sm:px-6 lg:px-10">
+    <section
+      id="news"
+      className="relative bg-white py-16 px-4 sm:px-6 lg:px-10 lg:py-24"
+    >
       <div className="mx-auto max-w-6xl">
         <AnimatedSection animation="fadeUp">
           <div className="space-y-4">
@@ -111,7 +114,41 @@ export function NewsSection() {
           </AnimatedSection>
 
           <div className="flex-1">
-            <div className="grid gap-12 md:grid-cols-2">
+            <div className="md:hidden">
+              {filteredNews.map((item, index) => (
+                <AnimatedSection
+                  key={item.id}
+                  animation="fadeUp"
+                  delay={index * 120}
+                  className="border-b border-gray-200 py-8 first:pt-0 last:border-b-0 last:pb-0"
+                >
+                  <article className="group flex items-stretch gap-6">
+                    <div className="flex min-w-0 flex-1 flex-col gap-3">
+                      <div className="flex flex-wrap items-center gap-3 text-xs">
+                        <span className="text-sm font-semibold tracking-wide text-gray-900">
+                          {item.date}
+                        </span>
+                        <span className="rounded-md bg-gray-900 px-3 py-1 text-[11px] tracking-wide text-white">
+                          {item.category}
+                        </span>
+                      </div>
+                      <h3 className="text-lg font-medium leading-relaxed text-gray-900">
+                        {item.title}
+                      </h3>
+                    </div>
+                    <div className="relative aspect-[4/3] w-28 shrink-0 overflow-hidden rounded-2xl bg-gray-100 sm:w-32">
+                      <ImageWithFallback
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                  </article>
+                </AnimatedSection>
+              ))}
+            </div>
+
+            <div className="hidden gap-12 md:grid md:grid-cols-2">
               {filteredNews.map((item, index) => (
                 <AnimatedSection
                   key={item.id}

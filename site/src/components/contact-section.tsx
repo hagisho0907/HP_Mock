@@ -54,117 +54,133 @@ export function ContactSection() {
   };
 
   return (
-    <section id="contact" className="relative bg-black py-20 px-6">
+    <section id="contact" className="relative bg-black px-4 py-16 sm:px-6 lg:py-24">
       <div className="container mx-auto max-w-3xl">
-        <h2 className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-white mb-16">CONTACT</h2>
+        <div className="mb-12 space-y-3 text-center">
+          <p className="text-xs uppercase tracking-[0.4em] text-white/50">Contact</p>
+          <h2 className="text-[clamp(42px,9vw,104px)] leading-none tracking-tight text-white">
+            お問い合わせ
+          </h2>
+          <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+            モバイルでも入力しやすい1カラムフォーム。最小限のスクロールで完結できます。
+          </p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-8">
-          <div>
-            <label className="text-white mb-3 block">
-              お名前 <span className="text-red-500">*</span>
-            </label>
-            <Input
-              type="text"
-              required
-              value={formData.name}
-              onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-              className="bg-white text-black border-0 h-12 rounded-md"
-            />
+        <form onSubmit={handleSubmit} className="space-y-6 rounded-[32px] bg-white/5 p-6 backdrop-blur-sm sm:p-8">
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
+                お名前 <span className="text-red-400">*</span>
+              </label>
+              <Input
+                type="text"
+                required
+                value={formData.name}
+                onChange={(event) => setFormData({ ...formData, name: event.target.value })}
+                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
+                会社名 <span className="text-red-400">*</span>
+              </label>
+              <Input
+                type="text"
+                required
+                value={formData.company}
+                onChange={(event) => setFormData({ ...formData, company: event.target.value })}
+                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+              />
+            </div>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
+                メールアドレス <span className="text-red-400">*</span>
+              </label>
+              <Input
+                type="email"
+                required
+                value={formData.email}
+                onChange={(event) => setFormData({ ...formData, email: event.target.value })}
+                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+              />
+            </div>
+
+            <div>
+              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">居住国</label>
+              <Input
+                type="text"
+                value={formData.country}
+                onChange={(event) => setFormData({ ...formData, country: event.target.value })}
+                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+              />
+            </div>
+          </div>
+
+          <div className="grid gap-6 sm:grid-cols-2">
+            <div>
+              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
+                業種 <span className="text-red-400">*</span>
+              </label>
+              <Select
+                required
+                value={formData.industry}
+                onValueChange={(value) => setFormData({ ...formData, industry: value })}
+              >
+                <SelectTrigger className="h-12 rounded-xl border-0 bg-white/90 text-gray-600">
+                  <SelectValue placeholder="選択してください" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="it">IT・通信</SelectItem>
+                  <SelectItem value="manufacturing">製造業</SelectItem>
+                  <SelectItem value="service">サービス業</SelectItem>
+                  <SelectItem value="entertainment">エンターテインメント</SelectItem>
+                  <SelectItem value="education">教育</SelectItem>
+                  <SelectItem value="real-estate">不動産</SelectItem>
+                  <SelectItem value="finance">金融</SelectItem>
+                  <SelectItem value="other">その他</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div>
+              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
+                お問い合わせ種別
+              </label>
+              <Select
+                value={formData.inquiryType}
+                onValueChange={(value) => setFormData({ ...formData, inquiryType: value })}
+              >
+                <SelectTrigger className="h-12 rounded-xl border-0 bg-white/90 text-gray-600">
+                  <SelectValue placeholder="選択してください" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="service">サービスについて</SelectItem>
+                  <SelectItem value="recruit">採用について</SelectItem>
+                  <SelectItem value="partnership">業務提携について</SelectItem>
+                  <SelectItem value="media">取材・メディア掲載について</SelectItem>
+                  <SelectItem value="other">その他</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
           </div>
 
           <div>
-            <label className="text-white mb-3 block">
-              会社名 <span className="text-red-500">*</span>
-            </label>
-            <Input
-              type="text"
-              required
-              value={formData.company}
-              onChange={(event) => setFormData({ ...formData, company: event.target.value })}
-              className="bg-white text-black border-0 h-12 rounded-md"
-            />
-          </div>
-
-          <div>
-            <label className="text-white mb-3 block">
-              メールアドレス <span className="text-red-500">*</span>
-            </label>
-            <Input
-              type="email"
-              required
-              value={formData.email}
-              onChange={(event) => setFormData({ ...formData, email: event.target.value })}
-              className="bg-white text-black border-0 h-12 rounded-md"
-            />
-          </div>
-
-          <div>
-            <label className="text-white mb-3 block">居住国</label>
-            <Input
-              type="text"
-              value={formData.country}
-              onChange={(event) => setFormData({ ...formData, country: event.target.value })}
-              className="bg-white text-black border-0 h-12 rounded-md"
-            />
-          </div>
-
-          <div>
-            <label className="text-white mb-3 block">
-              業種 <span className="text-red-500">*</span>
-            </label>
-            <Select
-              required
-              value={formData.industry}
-              onValueChange={(value) => setFormData({ ...formData, industry: value })}
-            >
-              <SelectTrigger className="bg-white text-gray-500 border-0 h-12 rounded-md">
-                <SelectValue placeholder="選択してください" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="it">IT・通信</SelectItem>
-                <SelectItem value="manufacturing">製造業</SelectItem>
-                <SelectItem value="service">サービス業</SelectItem>
-                <SelectItem value="entertainment">エンターテインメント</SelectItem>
-                <SelectItem value="education">教育</SelectItem>
-                <SelectItem value="real-estate">不動産</SelectItem>
-                <SelectItem value="finance">金融</SelectItem>
-                <SelectItem value="other">その他</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label className="text-white mb-3 block">お問い合わせ種別</label>
-            <Select
-              value={formData.inquiryType}
-              onValueChange={(value) => setFormData({ ...formData, inquiryType: value })}
-            >
-              <SelectTrigger className="bg-white text-gray-500 border-0 h-12 rounded-md">
-                <SelectValue placeholder="選択してください" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="service">サービスについて</SelectItem>
-                <SelectItem value="recruit">採用について</SelectItem>
-                <SelectItem value="partnership">業務提携について</SelectItem>
-                <SelectItem value="media">取材・メディア掲載について</SelectItem>
-                <SelectItem value="other">その他</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          <div>
-            <label className="text-white mb-3 block">
-              お問い合わせ内容 <span className="text-red-500">*</span>
+            <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
+              お問い合わせ内容 <span className="text-red-400">*</span>
             </label>
             <Textarea
               required
               value={formData.message}
               onChange={(event) => setFormData({ ...formData, message: event.target.value })}
-              className="bg-white text-black border-0 rounded-md min-h-40 resize-none"
+              className="min-h-40 rounded-2xl border-0 bg-white/90 text-black"
             />
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-col gap-3 rounded-2xl bg-white/5 p-4 sm:flex-row sm:items-center">
             <Checkbox
               id="privacy"
               checked={formData.privacyAgreed}
@@ -173,51 +189,47 @@ export function ContactSection() {
               }
               className="border-white bg-transparent data-[state=checked]:bg-white data-[state=checked]:text-black"
             />
-            <label htmlFor="privacy" className="text-white text-sm cursor-pointer">
+            <label htmlFor="privacy" className="text-sm text-white/80">
               プライバシーポリシーに同意して送信する
             </label>
           </div>
 
-          <div className="flex justify-center pt-4">
-            <button
-              type="submit"
-              className="bg-gray-700 text-white px-12 py-4 rounded-md hover:bg-gray-600 transition-colors inline-flex items-center gap-2"
-            >
-              この内容で送信する <span>{">"}</span>
-            </button>
-          </div>
+          <button
+            type="submit"
+            className="w-full rounded-full bg-white/90 py-4 text-sm font-semibold uppercase tracking-[0.4em] text-black transition hover:bg-white"
+          >
+            この内容で送信する
+          </button>
         </form>
 
-        <footer className="mt-20 pt-12 border-t border-white/20">
-          <nav className="flex flex-wrap justify-center gap-6 mb-6">
-            <a href="#home" className="text-white text-sm hover:opacity-70 transition-opacity">
+        <footer className="mt-16 border-t border-white/10 pt-10 text-center">
+          <nav className="mb-6 flex flex-wrap justify-center gap-4 text-xs uppercase tracking-[0.3em] text-white/60">
+            <a href="#home" className="hover:text-white">
               HOME
             </a>
-            <a href="#news" className="text-white text-sm hover:opacity-70 transition-opacity">
+            <a href="#news" className="hover:text-white">
               NEWS
             </a>
-            <a href="#service" className="text-white text-sm hover:opacity-70 transition-opacity">
+            <a href="#service" className="hover:text-white">
               SERVICE
             </a>
-            <a href="/works" className="text-white text-sm hover:opacity-70 transition-opacity">
+            <a href="/works" className="hover:text-white">
               WORKS
             </a>
-            <a href="#recruit" className="text-white text-sm hover:opacity-70 transition-opacity">
+            <a href="#recruit" className="hover:text-white">
               RECRUIT
             </a>
-            <a href="#about" className="text-white text-sm hover:opacity-70 transition-opacity">
-              ABOUT US
+            <a href="#about" className="hover:text-white">
+              ABOUT
             </a>
-            <a href="#contact" className="text-white text-sm hover:opacity-70 transition-opacity">
+            <a href="#contact" className="hover:text-white">
               CONTACT
             </a>
           </nav>
-          <div className="text-center">
-            <a href="#" className="text-white text-sm hover:opacity-70 transition-opacity block mb-4">
-              PRIVACY POLICY
-            </a>
-            <p className="text-white text-sm">(c)2024 toito.inc</p>
-          </div>
+          <a href="#" className="mb-3 block text-white text-sm hover:opacity-70">
+            PRIVACY POLICY
+          </a>
+          <p className="text-white/70 text-sm">(c)2024 toito.inc</p>
         </footer>
       </div>
     </section>

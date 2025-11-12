@@ -27,30 +27,40 @@ const services = [
 
 export function ServiceSection() {
   return (
-    <section id="service" className="relative bg-white py-20 px-6">
-      <div className="container mx-auto max-w-7xl">
+    <section id="service" className="relative bg-white py-16 px-4 sm:px-6 lg:py-24">
+      <div className="container mx-auto max-w-6xl">
         <AnimatedSection animation="fadeUp">
-          <h2 className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-black mb-16">SERVICE</h2>
+          <div className="space-y-4">
+            <p className="text-xs uppercase tracking-[0.6em] text-gray-400">Service</p>
+            <h2 className="text-[clamp(42px,9vw,104px)] leading-none tracking-tight text-black">
+              事業領域
+            </h2>
+            <p className="max-w-3xl text-sm text-gray-500 sm:text-base">
+              コンテンツ制作から運営、IP開発までをワンストップで支援。スマートフォンでも読みやすいカードレイアウトで、それぞれの強みを直感的に理解できます。
+            </p>
+          </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
           {services.map((service, index) => (
-            <AnimatedSection
-              key={service.id}
-              animation="fadeUp"
-              delay={index * 200}
-            >
-              <article className="bg-white rounded-2xl overflow-hidden hover-lift cursor-pointer">
-                <div className="aspect-[4/3] overflow-hidden image-overlay">
-                  <ImageWithFallback
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover hover-zoom"
-                  />
+            <AnimatedSection key={service.id} animation="fadeUp" delay={index * 200}>
+              <article className="flex h-full flex-col overflow-hidden rounded-[28px] border border-gray-100 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.05)]">
+                <div className="relative overflow-hidden">
+                  <div className="aspect-[5/4] sm:aspect-[4/3]">
+                    <ImageWithFallback
+                      src={service.image}
+                      alt={service.title}
+                      className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                    />
+                  </div>
+                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                  <p className="absolute bottom-4 left-4 rounded-full bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-gray-900">
+                    0{service.id}
+                  </p>
                 </div>
-                <div className="p-6">
-                  <h3 className="mb-3">{service.title}</h3>
-                  <p className="text-gray-600 text-sm">{service.description}</p>
+                <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 sm:text-xl">{service.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-600">{service.description}</p>
                 </div>
               </article>
             </AnimatedSection>
