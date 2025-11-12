@@ -14,7 +14,7 @@ const newsItems = [
       "工場全体を見渡す可視化ダッシュボードとリモート改善チームの連携で、現場負荷を抑えながら品質とスピードを両立。",
     category: "事例紹介",
     image:
-      "https://images.unsplash.com/photo-1465066989788-372fcdde2a9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxzZWFmb29kJTIwZmFjdG9yeXxlbnwxfHx8fDE3NjI0NTA0Mjl8MA&ixlib=rb-4.1.0&q=80&w=1200"
+      "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 2,
@@ -25,7 +25,7 @@ const newsItems = [
       "散在していた販売実績と在庫データを一元化し、商談の“気づき”を自動提案。新しい販路開拓とチーム共通言語づくりに挑戦中。",
     category: "事例紹介",
     image:
-      "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHJlZXQlMjB2ZW5kb3J8ZW58MXx8fHwxNzYyNDUwNDMwfDA&ixlib=rb-4.1.0&q=80&w=1200"
+      "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 3,
@@ -36,7 +36,7 @@ const newsItems = [
       "ハードとソフトを分けずに“移動体験”として再設計。開発チームとサポートチームが一体となった改善プロセスを公開。",
     category: "事例紹介",
     image:
-      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXNoYm9hcmQlMjBhbmFseXRpY3N8ZW58MXx8fHwxNzYyNDUwNDM1fDA&ixlib=rb-4.1.0&q=80&w=1200"
+      "https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=1200&q=80"
   },
   {
     id: 4,
@@ -47,7 +47,7 @@ const newsItems = [
       "車両配備、経路最適化、エネルギーマネジメントをワンストップ化。顧客ヒアリングをもとにした最短デリバリー体制が強み。",
     category: "社員インタビュー",
     image:
-      "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxzbWFydHBob25lJTIwYXBwfGVufDF8fHx8MTc2MjQ1MDQ0MHww&ixlib=rb-4.1.0&q=80&w=1200"
+      "https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1200&q=80"
   }
 ];
 
