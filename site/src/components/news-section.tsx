@@ -1,68 +1,174 @@
+'use client';
+
+import { useState } from "react";
 import { ImageWithFallback } from "./figma/image-with-fallback";
 import { AnimatedSection } from "./animated-section";
 
 const newsItems = [
   {
     id: 1,
-    date: "2025/10/30",
-    title: "イマーシブシアター『蔵丘街いの約束～戦時のフルリは幻影と共に～』KV&...",
+    date: "2025.04.07",
+    title:
+      "世界初・チリのウニ工場にAI画像認識システムを導入 現地の課題と親身に向き合い最適なソリューションを開発",
+    description:
+      "工場全体を見渡す可視化ダッシュボードとリモート改善チームの連携で、現場負荷を抑えながら品質とスピードを両立。",
+    category: "事例紹介",
     image:
-      "https://images.unsplash.com/photo-1761618291331-535983ae4296?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0aGVhdGVyJTIwcGVyZm9ybWFuY2UlMjBzdGFnZSUyMGxpZ2h0c3xlbnwxfHx8fDE3NjI0MzgxOTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      "https://images.unsplash.com/photo-1465066989788-372fcdde2a9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxzZWFmb29kJTIwZmFjdG9yeXxlbnwxfHx8fDE3NjI0NTA0Mjl8MA&ixlib=rb-4.1.0&q=80&w=1200"
   },
   {
     id: 2,
-    date: "2025/10/17",
-    title: "『細田守監督作品と思春期展』開催決定！",
+    date: "2025.04.07",
+    title:
+      "AI活用で営業計画を効率化 不二家ベトナムが東南アジアで挑む卸売DX",
+    description:
+      "散在していた販売実績と在庫データを一元化し、商談の“気づき”を自動提案。新しい販路開拓とチーム共通言語づくりに挑戦中。",
+    category: "事例紹介",
     image:
-      "https://images.unsplash.com/photo-1740297223378-38c5ee91d459?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhbmltZSUyMGV4aGliaXRpb24lMjBjb2xvcmZ1bHxlbnwxfHx8fDE3NjI0MzgxOTN8MA&ixlib=rb-4.1.0&q=80&w=1080"
+      "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzdHJlZXQlMjB2ZW5kb3J8ZW58MXx8fHwxNzYyNDUwNDMwfDA&ixlib=rb-4.1.0&q=80&w=1200"
   },
   {
     id: 3,
-    date: "2025/9/24",
-    title: "『思春期展』の大阪開催が決定！",
+    date: "2024.09.18",
+    title:
+      "EVを導入から管理まで一元的にサポートする『EVolity』誕生 顧客に伴走し柔軟かつスピーディに進むサービス改善",
+    description:
+      "ハードとソフトを分けずに“移動体験”として再設計。開発チームとサポートチームが一体となった改善プロセスを公開。",
+    category: "事例紹介",
     image:
-      "https://images.unsplash.com/photo-1674978667530-cdf6630b38dd?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3aW50ZXIlMjBmZXN0aXZhbCUyMGxpZ2h0cyUyMGphcGFufGVufDF8fHx8MTc2MjQzODE5NHww&ixlib=rb-4.1.0&q=80&w=1080"
+      "https://images.unsplash.com/photo-1498050108023-c5249f4df085?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXNoYm9hcmQlMjBhbmFseXRpY3N8ZW58MXx8fHwxNzYyNDUwNDM1fDA&ixlib=rb-4.1.0&q=80&w=1200"
+  },
+  {
+    id: 4,
+    date: "2024.09.18",
+    title:
+      "顧客価値と向き合うことで生まれた『おまかせEV for Biz』配車・充電マネジメントで法人のEV導入を親身に支援",
+    description:
+      "車両配備、経路最適化、エネルギーマネジメントをワンストップ化。顧客ヒアリングをもとにした最短デリバリー体制が強み。",
+    category: "社員インタビュー",
+    image:
+      "https://images.unsplash.com/photo-1517430816045-df4b7de11d1d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwyfHxzbWFydHBob25lJTIwYXBwfGVufDF8fHx8MTc2MjQ1MDQ0MHww&ixlib=rb-4.1.0&q=80&w=1200"
   }
 ];
 
+const categories = ["All", "社員インタビュー", "事例紹介"];
+
 export function NewsSection() {
+  const [selectedCategory, setSelectedCategory] = useState("All");
+  const filteredNews =
+    selectedCategory === "All"
+      ? newsItems
+      : newsItems.filter((item) => item.category === selectedCategory);
+
   return (
-    <section id="news" className="relative bg-gray-50 py-20 px-6">
-      <div className="container mx-auto max-w-7xl">
+    <section id="news" className="relative bg-white py-24 px-4 sm:px-6 lg:px-10">
+      <div className="mx-auto max-w-6xl">
         <AnimatedSection animation="fadeUp">
-          <div className="flex items-start justify-between mb-12">
-            <h2 className="text-6xl md:text-7xl lg:text-8xl">NEWS</h2>
-            <a
-              href="#news"
-              className="inline-flex items-center gap-2 text-sm tracking-wider hover:opacity-70 transition-opacity mt-4 glow-on-hover"
-            >
-              VIEW MORE <span>{">"}</span>
-            </a>
+          <div className="space-y-4">
+            <p className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-[#d10000]">
+              Journal
+            </p>
+            <p className="text-lg text-gray-500">私たちの思考やアイディア</p>
           </div>
         </AnimatedSection>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {newsItems.map((item, index) => (
-            <AnimatedSection 
-              key={item.id}
-              animation="fadeUp"
-              delay={index * 200}
-            >
-              <article className="bg-white rounded-2xl overflow-hidden shadow-md hover-lift cursor-pointer">
-                <div className="aspect-video overflow-hidden image-overlay">
-                  <ImageWithFallback
-                    src={item.image}
-                    alt={item.title}
-                    className="w-full h-full object-cover hover-zoom"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="mb-3 leading-snug">{item.title}</h3>
-                  <p className="text-gray-500 text-sm">{item.date}</p>
-                </div>
-              </article>
-            </AnimatedSection>
-          ))}
+        <div className="mt-16 flex flex-col gap-12 lg:flex-row">
+          <AnimatedSection className="lg:w-1/4" animation="fadeUp" delay={150}>
+            <p className="text-xs uppercase tracking-[0.5em] text-gray-400">
+              Category
+            </p>
+            <div className="mt-6 space-y-5">
+              {categories.map((category) => {
+                const isActive = category === selectedCategory;
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    aria-pressed={isActive}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`flex items-center gap-4 text-base transition-colors ${
+                      isActive
+                        ? "text-[#d10000]"
+                        : "text-gray-400 hover:text-gray-600"
+                    }`}
+                  >
+                    <span
+                      className={`flex h-4 w-4 items-center justify-center rounded-full border ${
+                        isActive ? "border-[#d10000]" : "border-gray-300"
+                      }`}
+                    >
+                      <span
+                        className={`h-2 w-2 rounded-full ${
+                          isActive ? "bg-[#d10000]" : "bg-transparent"
+                        }`}
+                      />
+                    </span>
+                    {category}
+                  </button>
+                );
+              })}
+            </div>
+          </AnimatedSection>
+
+          <div className="flex-1">
+            <div className="grid gap-12 md:grid-cols-2">
+              {filteredNews.map((item, index) => (
+                <AnimatedSection
+                  key={item.id}
+                  animation="fadeUp"
+                  delay={index * 120}
+                >
+                  <article className="group cursor-pointer">
+                    <div className="relative overflow-hidden rounded-[32px] bg-gray-100">
+                      <ImageWithFallback
+                        src={item.image}
+                        alt={item.title}
+                        className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+                      />
+                    </div>
+                    <div className="mt-6 space-y-3">
+                      <div className="flex flex-wrap items-center gap-3 text-sm">
+                        <span className="font-semibold tracking-wide">
+                          {item.date}
+                        </span>
+                        <span className="rounded-full bg-gray-900 px-3 py-1 text-xs uppercase tracking-wide text-white">
+                          {item.category}
+                        </span>
+                      </div>
+                      <h3 className="text-2xl font-medium leading-snug text-gray-900">
+                        {item.title}
+                      </h3>
+                      <p className="text-sm leading-relaxed text-gray-500">
+                        {item.description}
+                      </p>
+                    </div>
+                  </article>
+                </AnimatedSection>
+              ))}
+            </div>
+
+            <div className="mt-12 flex items-center gap-4 text-sm tracking-[0.4em] text-gray-400">
+              {[1, 2, 3].map((page) => (
+                <button
+                  key={page}
+                  type="button"
+                  className={`px-3 py-1 font-light ${
+                    page === 1 ? "text-[#d10000]" : "hover:text-gray-600"
+                  }`}
+                  aria-current={page === 1 ? "page" : undefined}
+                >
+                  {page}
+                </button>
+              ))}
+              <button
+                type="button"
+                className="px-3 py-1 text-lg hover:text-gray-600"
+                aria-label="Next page"
+              >
+                &gt;
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </section>
