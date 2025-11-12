@@ -27,11 +27,11 @@ export function LoadingScreen() {
     <div className="fixed inset-0 z-50 bg-black flex items-center justify-center">
       <div className="text-center">
         <div className="mb-8">
-          <h1 
-            className="text-white text-4xl md:text-6xl font-light tracking-wide"
+          <h1
+            className="text-white text-4xl md:text-6xl font-light tracking-[0.4em]"
             style={{ fontFamily: 'Georgia, serif' }}
           >
-            NOMORE INC.
+            toito.inc
           </h1>
         </div>
         
