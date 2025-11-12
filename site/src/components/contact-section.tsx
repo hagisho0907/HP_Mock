@@ -56,7 +56,7 @@ export function ContactSection() {
   return (
     <section id="contact" className="relative bg-black py-20 px-6">
       <div className="container mx-auto max-w-3xl">
-        <h2 className="text-white text-6xl md:text-7xl lg:text-8xl mb-16">CONTACT</h2>
+        <h2 className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-white mb-16">CONTACT</h2>
 
         <form onSubmit={handleSubmit} className="space-y-8">
           <div>

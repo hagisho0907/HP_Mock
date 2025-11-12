@@ -27,15 +27,7 @@ export function HomeSection() {
       <AnimatedSection animation="fadeUp" delay={600}>
         <div className="container mx-auto px-6 pb-16 md:pb-20 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
-            <h2
-              className="text-white mb-8"
-              style={{
-                fontSize: "80px",
-                lineHeight: "1.2",
-                fontWeight: "700",
-                letterSpacing: "0.02em"
-              }}
-            >
+            <h2 className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-white mb-8">
               WHAT WE DO
             </h2>
             <div className="text-white/90" style={{ fontSize: "15px", lineHeight: "1.8" }}>

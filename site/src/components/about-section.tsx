@@ -5,7 +5,7 @@ export function AboutSection() {
     <section id="about" className="relative py-24 md:py-32 px-6 min-h-screen flex items-center">
       <div className="container mx-auto max-w-7xl relative z-10">
         <AnimatedSection animation="fadeUp">
-          <h2 className="text-white text-6xl md:text-7xl lg:text-8xl mb-12">ABOUT US</h2>
+          <h2 className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-white mb-12">ABOUT US</h2>
         </AnimatedSection>
 
         <AnimatedSection animation="fadeUp" delay={300}>

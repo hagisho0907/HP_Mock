@@ -30,7 +30,7 @@ export function ServiceSection() {
     <section id="service" className="relative bg-white py-20 px-6">
       <div className="container mx-auto max-w-7xl">
         <AnimatedSection animation="fadeUp">
-          <h2 className="text-6xl md:text-7xl lg:text-8xl mb-16">SERVICE</h2>
+          <h2 className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-black mb-16">SERVICE</h2>
         </AnimatedSection>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

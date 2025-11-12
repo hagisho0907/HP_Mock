@@ -8,7 +8,7 @@ export function RecruitSection() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           <AnimatedSection animation="slideRight">
             <div>
-              <h2 className="text-6xl md:text-7xl lg:text-8xl mb-8">RECRUIT</h2>
+              <h2 className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-black mb-8">RECRUIT</h2>
               <p className="text-gray-800 mb-8 leading-relaxed">
                 新しいストーリー体験、
                 <br />
