@@ -10,9 +10,9 @@ const notoSans = Noto_Sans_JP({
 });
 
 export const metadata: Metadata = {
-  title: "NO MORE Inc.",
+  title: "toito.inc",
   description:
-    "テクノロジーで人々の記憶に残る新しいストーリー体験を発明するNO MORE Inc.の公式サイトモック。"
+    "テクノロジーで人々の記憶に残る新しいストーリー体験を発明するtoito.incの公式サイトモック。"
 };
 
 export default function RootLayout({

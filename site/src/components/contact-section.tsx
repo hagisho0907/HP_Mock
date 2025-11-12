@@ -216,7 +216,7 @@ export function ContactSection() {
             <a href="#" className="text-white text-sm hover:opacity-70 transition-opacity block mb-4">
               PRIVACY POLICY
             </a>
-            <p className="text-white text-sm">(c)2024 NO MORE Inc.</p>
+            <p className="text-white text-sm">(c)2024 toito.inc</p>
           </div>
         </footer>
       </div>

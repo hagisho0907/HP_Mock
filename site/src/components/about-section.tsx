@@ -14,7 +14,7 @@ export function AboutSection() {
               <tbody>
                 <tr className="border-b border-white/30">
                   <td className="py-6 pr-8 align-top whitespace-nowrap text-gray-300">商号</td>
-                  <td className="py-6">株式会社NO MORE</td>
+                  <td className="py-6">toito.inc</td>
                 </tr>
                 <tr className="border-b border-white/30">
                   <td className="py-6 pr-8 align-top whitespace-nowrap text-gray-300">住所</td>

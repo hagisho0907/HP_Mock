@@ -31,7 +31,7 @@ export function HomeSection() {
               WHAT WE DO
             </h2>
             <div className="text-white/90" style={{ fontSize: "15px", lineHeight: "1.8" }}>
-              <p>NO MOREは東京を拠点とする体験型エンターテイメント カンパニー。</p>
+              <p>toito.incは東京を拠点とする体験型エンターテイメント カンパニー。</p>
               <p>デジタルテクノロジーを駆使して没入・体験型コンテンツを開発し、</p>
               <p>それらを体験できる空間やイベントを世界中で展開していきます。</p>
             </div>
