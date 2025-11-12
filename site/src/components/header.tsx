@@ -20,16 +20,16 @@ export function Header() {
   const handleClose = () => setMobileMenuOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/40 via-black/20 to-transparent backdrop-blur-sm">
-      <div className="container mx-auto px-8 py-8 md:py-10">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/80 via-black/45 to-transparent backdrop-blur-lg">
+      <div className="container mx-auto px-8 py-12 md:py-16">
         <div className="flex items-center justify-between">
           <Link
             href="/"
-            className="text-white italic tracking-wide"
-            style={{ fontFamily: "Georgia, serif" }}
+            className="text-white tracking-[0.4em]"
+            style={{ fontFamily: "Georgia, serif", letterSpacing: "0.3em" }}
             onClick={handleClose}
           >
-            NOMORE INC.
+            toito.inc
           </Link>
 
           <nav className="hidden lg:flex items-center gap-12 ml-auto">
