@@ -53,84 +53,95 @@ export function ContactSection() {
     alert("お問い合わせありがとうございます。（デモ版のため送信されません）");
   };
 
+  const labelClass =
+    "mb-2 block text-xs uppercase tracking-[0.3em] text-white/70 lg:mb-3 lg:text-base lg:font-normal lg:tracking-normal lg:text-white lg:normal-case";
+  const inputClass = "h-12 rounded-xl border-0 bg-white/90 text-black lg:rounded-md lg:bg-white";
+  const selectTriggerClass =
+    "h-12 rounded-xl border-0 bg-white/90 text-gray-600 lg:rounded-md lg:bg-white lg:text-gray-500";
+  const textareaClass =
+    "min-h-40 rounded-2xl border-0 bg-white/90 text-black lg:rounded-md lg:bg-white";
+
   return (
-    <section id="contact" className="relative bg-black px-4 py-16 sm:px-6 lg:py-24">
+    <section id="contact" className="relative bg-black px-4 py-16 sm:px-6 lg:px-6 lg:py-20">
       <div className="container mx-auto max-w-3xl">
-        <div className="mb-12 space-y-3 text-center">
-          <p className="text-xs uppercase tracking-[0.4em] text-white/50">Contact</p>
-          <h2 className="text-[clamp(42px,9vw,104px)] leading-none tracking-tight text-white">
-            お問い合わせ
+        <div className="mb-12 space-y-3 text-center lg:mb-16 lg:space-y-0 lg:text-left">
+          <p className="text-xs uppercase tracking-[0.4em] text-white/50 lg:hidden">Contact</p>
+          <h2 className="text-[clamp(42px,9vw,104px)] leading-none tracking-tight text-white lg:text-[clamp(48px,10vw,104px)]">
+            CONTACT
           </h2>
-          <p className="text-sm leading-relaxed text-white/70 sm:text-base">
+          <p className="text-sm leading-relaxed text-white/70 sm:text-base lg:hidden">
             モバイルでも入力しやすい1カラムフォーム。最小限のスクロールで完結できます。
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-6 rounded-[32px] bg-white/5 p-6 backdrop-blur-sm sm:p-8">
-          <div className="grid gap-6 sm:grid-cols-2">
+        <form
+          onSubmit={handleSubmit}
+          className="space-y-6 rounded-[32px] bg-white/5 p-6 backdrop-blur-sm sm:p-8 lg:space-y-8 lg:rounded-none lg:bg-transparent lg:p-0 lg:backdrop-blur-0"
+        >
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
             <div>
-              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
-                お名前 <span className="text-red-400">*</span>
+              <label className={labelClass}>
+                お名前 <span className="text-red-400 lg:text-red-500">*</span>
               </label>
               <Input
                 type="text"
                 required
                 value={formData.name}
                 onChange={(event) => setFormData({ ...formData, name: event.target.value })}
-                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+                className={inputClass}
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
-                会社名 <span className="text-red-400">*</span>
+              <label className={labelClass}>
+                会社名 <span className="text-red-400 lg:text-red-500">*</span>
               </label>
               <Input
                 type="text"
                 required
                 value={formData.company}
                 onChange={(event) => setFormData({ ...formData, company: event.target.value })}
-                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+                className={inputClass}
               />
             </div>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
             <div>
-              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
-                メールアドレス <span className="text-red-400">*</span>
+              <label className={labelClass}>
+                メールアドレス <span className="text-red-400 lg:text-red-500">*</span>
               </label>
               <Input
                 type="email"
                 required
                 value={formData.email}
                 onChange={(event) => setFormData({ ...formData, email: event.target.value })}
-                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+                className={inputClass}
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">居住国</label>
+              <label className={labelClass}>居住国</label>
               <Input
                 type="text"
                 value={formData.country}
                 onChange={(event) => setFormData({ ...formData, country: event.target.value })}
-                className="h-12 rounded-xl border-0 bg-white/90 text-black"
+                className={inputClass}
               />
             </div>
           </div>
 
-          <div className="grid gap-6 sm:grid-cols-2">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1">
             <div>
-              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
-                業種 <span className="text-red-400">*</span>
+              <label className={labelClass}>
+                業種 <span className="text-red-400 lg:text-red-500">*</span>
               </label>
               <Select
                 required
                 value={formData.industry}
                 onValueChange={(value) => setFormData({ ...formData, industry: value })}
               >
-                <SelectTrigger className="h-12 rounded-xl border-0 bg-white/90 text-gray-600">
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="選択してください" />
                 </SelectTrigger>
                 <SelectContent>
@@ -147,14 +158,12 @@ export function ContactSection() {
             </div>
 
             <div>
-              <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
-                お問い合わせ種別
-              </label>
+              <label className={labelClass}>お問い合わせ種別</label>
               <Select
                 value={formData.inquiryType}
                 onValueChange={(value) => setFormData({ ...formData, inquiryType: value })}
               >
-                <SelectTrigger className="h-12 rounded-xl border-0 bg-white/90 text-gray-600">
+                <SelectTrigger className={selectTriggerClass}>
                   <SelectValue placeholder="選択してください" />
                 </SelectTrigger>
                 <SelectContent>
@@ -169,18 +178,18 @@ export function ContactSection() {
           </div>
 
           <div>
-            <label className="mb-2 block text-xs uppercase tracking-[0.3em] text-white/70">
-              お問い合わせ内容 <span className="text-red-400">*</span>
+            <label className={labelClass}>
+              お問い合わせ内容 <span className="text-red-400 lg:text-red-500">*</span>
             </label>
             <Textarea
               required
               value={formData.message}
               onChange={(event) => setFormData({ ...formData, message: event.target.value })}
-              className="min-h-40 rounded-2xl border-0 bg-white/90 text-black"
+              className={textareaClass}
             />
           </div>
 
-          <div className="flex flex-col gap-3 rounded-2xl bg-white/5 p-4 sm:flex-row sm:items-center">
+          <div className="flex flex-col gap-3 rounded-2xl bg-white/5 p-4 sm:flex-row sm:items-center lg:flex-row lg:items-center lg:gap-3 lg:rounded-none lg:bg-transparent lg:p-0">
             <Checkbox
               id="privacy"
               checked={formData.privacyAgreed}
@@ -194,16 +203,18 @@ export function ContactSection() {
             </label>
           </div>
 
-          <button
-            type="submit"
-            className="w-full rounded-full bg-white/90 py-4 text-sm font-semibold uppercase tracking-[0.4em] text-black transition hover:bg-white"
-          >
-            この内容で送信する
-          </button>
+          <div className="pt-2 lg:pt-4 lg:flex lg:justify-center">
+            <button
+              type="submit"
+              className="flex w-full items-center justify-center gap-2 rounded-full bg-white/90 py-4 text-sm font-semibold uppercase tracking-[0.4em] text-black transition hover:bg-white lg:w-auto lg:rounded-md lg:bg-gray-700 lg:px-12 lg:text-white lg:font-normal lg:tracking-normal lg:normal-case"
+            >
+              この内容で送信する <span>{">"}</span>
+            </button>
+          </div>
         </form>
 
-        <footer className="mt-16 border-t border-white/10 pt-10 text-center">
-          <nav className="mb-6 flex flex-wrap justify-center gap-4 text-xs uppercase tracking-[0.3em] text-white/60">
+        <footer className="mt-16 border-t border-white/10 pt-10 text-center lg:mt-20 lg:border-white/20 lg:pt-12">
+          <nav className="mb-6 flex flex-wrap justify-center gap-4 text-xs uppercase tracking-[0.3em] text-white/60 lg:gap-6 lg:text-sm lg:tracking-normal lg:text-white lg:normal-case">
             <a href="#home" className="hover:text-white">
               HOME
             </a>

@@ -31,17 +31,18 @@ export function ServiceSection() {
       <div className="container mx-auto max-w-6xl">
         <AnimatedSection animation="fadeUp">
           <div className="space-y-4">
-            <p className="text-xs uppercase tracking-[0.6em] text-gray-400">Service</p>
+            <p className="text-xs uppercase tracking-[0.6em] text-gray-400 lg:hidden">Service</p>
             <h2 className="text-[clamp(42px,9vw,104px)] leading-none tracking-tight text-black">
-              事業領域
+              <span className="lg:hidden">事業領域</span>
+              <span className="hidden lg:inline">SERVICE</span>
             </h2>
-            <p className="max-w-3xl text-sm text-gray-500 sm:text-base">
+            <p className="max-w-3xl text-sm text-gray-500 sm:text-base lg:hidden">
               コンテンツ制作から運営、IP開発までをワンストップで支援。スマートフォンでも読みやすいカードレイアウトで、それぞれの強みを直感的に理解できます。
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 lg:hidden">
           {services.map((service, index) => (
             <AnimatedSection key={service.id} animation="fadeUp" delay={index * 200}>
               <article className="flex h-full flex-col overflow-hidden rounded-[28px] border border-gray-100 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.05)]">
@@ -61,6 +62,26 @@ export function ServiceSection() {
                 <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
                   <h3 className="text-lg font-semibold text-gray-900 sm:text-xl">{service.title}</h3>
                   <p className="text-sm leading-relaxed text-gray-600">{service.description}</p>
+                </div>
+              </article>
+            </AnimatedSection>
+          ))}
+        </div>
+
+        <div className="mt-16 hidden gap-6 lg:grid lg:grid-cols-3">
+          {services.map((service, index) => (
+            <AnimatedSection key={service.id} animation="fadeUp" delay={index * 200}>
+              <article className="cursor-pointer overflow-hidden rounded-2xl bg-white hover-lift">
+                <div className="image-overlay aspect-[4/3] overflow-hidden">
+                  <ImageWithFallback
+                    src={service.image}
+                    alt={service.title}
+                    className="h-full w-full object-cover hover-zoom"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="mb-3">{service.title}</h3>
+                  <p className="text-sm text-gray-600">{service.description}</p>
                 </div>
               </article>
             </AnimatedSection>
