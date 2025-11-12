@@ -38,8 +38,9 @@ const SelectContent = React.forwardRef<
     <SelectPrimitive.Content
       ref={ref}
       className={cn(
-        "relative z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md",
-        position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=top]:-translate-y-1",
+        "relative z-50 min-w-[8rem] overflow-hidden rounded-2xl border border-black/5 bg-white text-gray-900 shadow-[0_20px_50px_rgba(0,0,0,0.4)] ring-1 ring-black/5 dark:border-white/15 dark:bg-neutral-900 dark:text-white dark:ring-white/10",
+        position === "popper" &&
+          "data-[side=bottom]:translate-y-1 data-[side=bottom]:mt-2 data-[side=top]:-translate-y-1 data-[side=top]:mb-2",
         className
       )}
       position={position}
@@ -78,9 +79,9 @@ const SelectItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
 >(({ className, children, ...props }, ref) => (
   <SelectPrimitive.Item
-    ref={ref}
-    className={cn(
-      "relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      ref={ref}
+      className={cn(
+      "relative flex w-full cursor-default select-none items-center rounded-xl py-2 pl-8 pr-3 text-sm outline-none transition-colors focus:bg-gray-100 focus:text-gray-900 dark:focus:bg-neutral-800 dark:focus:text-white data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     )}
     {...props}
