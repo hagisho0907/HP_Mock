@@ -42,46 +42,26 @@ export function ServiceSection() {
           </div>
         </AnimatedSection>
 
-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3 lg:hidden">
+        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
           {services.map((service, index) => (
             <AnimatedSection key={service.id} animation="fadeUp" delay={index * 200}>
-              <article className="flex h-full flex-col overflow-hidden rounded-[28px] border border-gray-100 bg-white shadow-[0_15px_40px_rgba(0,0,0,0.05)]">
+              <article className="group flex h-full min-h-[400px] flex-col overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 cursor-pointer">
                 <div className="relative overflow-hidden">
-                  <div className="aspect-[5/4] sm:aspect-[4/3]">
+                  <div className="aspect-[4/3]">
                     <ImageWithFallback
                       src={service.image}
                       alt={service.title}
-                      className="h-full w-full object-cover transition duration-700 hover:scale-105"
+                      className="h-full w-full object-cover transition duration-700 group-hover:scale-105"
                     />
                   </div>
-                  <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-                  <p className="absolute bottom-4 left-4 rounded-full bg-white/80 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-gray-900">
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  <div className="absolute bottom-4 left-4 rounded-full bg-white/90 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.3em] text-gray-900">
                     0{service.id}
-                  </p>
+                  </div>
                 </div>
-                <div className="flex flex-1 flex-col gap-3 p-5 sm:p-6">
-                  <h3 className="text-lg font-semibold text-gray-900 sm:text-xl">{service.title}</h3>
-                  <p className="text-sm leading-relaxed text-gray-600">{service.description}</p>
-                </div>
-              </article>
-            </AnimatedSection>
-          ))}
-        </div>
-
-        <div className="mt-16 hidden gap-6 lg:grid lg:grid-cols-3">
-          {services.map((service, index) => (
-            <AnimatedSection key={service.id} animation="fadeUp" delay={index * 200}>
-              <article className="cursor-pointer overflow-hidden rounded-2xl bg-white hover-lift">
-                <div className="image-overlay aspect-[4/3] overflow-hidden">
-                  <ImageWithFallback
-                    src={service.image}
-                    alt={service.title}
-                    className="h-full w-full object-cover hover-zoom"
-                  />
-                </div>
-                <div className="p-6">
-                  <h3 className="mb-3">{service.title}</h3>
-                  <p className="text-sm text-gray-600">{service.description}</p>
+                <div className="flex flex-1 flex-col gap-3 p-6">
+                  <h3 className="text-lg font-semibold text-gray-900 leading-tight">{service.title}</h3>
+                  <p className="text-sm leading-relaxed text-gray-600 flex-1">{service.description}</p>
                 </div>
               </article>
             </AnimatedSection>

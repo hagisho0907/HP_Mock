@@ -356,6 +356,9 @@ html {
   transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
   transform-style: preserve-3d;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
 }
 
 .works-card:hover {
@@ -364,8 +367,9 @@ html {
 
 .works-card-image-container {
   position: relative;
-  height: 280px;
+  aspect-ratio: 4/3;
   overflow: hidden;
+  flex: 0 0 auto;
 }
 
 .works-card-image-wrapper {
@@ -456,6 +460,10 @@ html {
   background: white;
   position: relative;
   z-index: 2;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .works-card-title {
