@@ -219,19 +219,13 @@ export function ContactSection() {
               HOME
             </a>
             <a href="#news" className="hover:text-white">
-              NEWS
-            </a>
-            <a href="#service" className="hover:text-white">
-              SERVICE
+              INFO
             </a>
             <a href="/works" className="hover:text-white">
-              WORKS
-            </a>
-            <a href="#recruit" className="hover:text-white">
-              RECRUIT
+              WORK
             </a>
             <a href="#about" className="hover:text-white">
-              ABOUT
+              TEAM
             </a>
             <a href="#contact" className="hover:text-white">
               CONTACT

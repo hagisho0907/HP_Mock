@@ -69,7 +69,7 @@ export function NewsSection() {
         <AnimatedSection animation="fadeUp">
           <div className="space-y-4">
             <p className="text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-[#d10000]">
-              News
+              INFO
             </p>
             <p className="text-lg text-gray-500">私たちの思考やアイディア</p>
           </div>

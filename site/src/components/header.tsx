@@ -6,11 +6,9 @@ import { Menu, X } from "lucide-react";
 
 const menuItems = [
   { name: "HOME", href: "/#home" },
-  { name: "NEWS", href: "/#news" },
-  { name: "SERVICE", href: "/#service" },
-  { name: "WORKS", href: "/works" },
-  { name: "RECRUIT", href: "/#recruit" },
-  { name: "ABOUT US", href: "/#about" },
+  { name: "INFO", href: "/#news" },
+  { name: "WORK", href: "/works" },
+  { name: "TEAM", href: "/#about" },
   { name: "CONTACT", href: "/#contact" }
 ];
 
@@ -21,7 +19,7 @@ export function Header() {
 
   return (
     <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-white/2 to-transparent backdrop-blur-sm">
-      <div className="container mx-auto px-8 py-12 md:py-16">
+      <div className="container mx-auto px-8 py-8 md:py-10">
         <div className="flex items-center justify-between">
           <Link
             href="/"
