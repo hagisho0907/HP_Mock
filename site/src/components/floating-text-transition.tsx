@@ -34,6 +34,20 @@ export function FloatingTextTransition() {
       } else {
         setCurrentPhase(3);
       }
+
+      // 既存のWHAT WE DO要素を制御
+      const whatWeDoElement = document.querySelector('[data-what-we-do]') as HTMLElement;
+      if (whatWeDoElement) {
+        if (currentPhase >= 1) {
+          // 浮遊フェーズ以降は元の要素を隠す
+          whatWeDoElement.style.opacity = '0';
+          whatWeDoElement.style.pointerEvents = 'none';
+        } else {
+          // 通常時は表示
+          whatWeDoElement.style.opacity = '1';
+          whatWeDoElement.style.pointerEvents = 'auto';
+        }
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -79,17 +93,17 @@ export function FloatingTextTransition() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-30">
-      {/* フローティング「WHAT WE DO」テキスト */}
+      {/* フローティング「WHAT WE DO」テキスト - 既存要素と同じスタイル */}
       {(currentPhase === 1 || currentPhase === 2) && (
         <div
           className="absolute inset-0 flex items-center justify-center"
           style={{
-            transform: `translateY(${-floatingProgress * 50 + fadeProgress * -100}px) scale(${1 + floatingProgress * 0.3})`,
+            transform: `translateY(${-floatingProgress * 50 + fadeProgress * -100}px) scale(${1 + floatingProgress * 0.2})`,
             opacity: Math.max(0, 1 - fadeProgress * 2),
           }}
         >
           <h1 
-            className="text-[clamp(40px,8vw,80px)] font-bold text-white text-center leading-none tracking-wider"
+            className="text-[clamp(36px,12vw,104px)] leading-none tracking-tight text-white lg:text-[clamp(48px,10vw,104px)]"
             style={{
               textShadow: '0 0 30px rgba(255,255,255,0.5), 0 0 60px rgba(255,255,255,0.3)',
               filter: `blur(${fadeProgress * 2}px)`,
