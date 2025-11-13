@@ -20,10 +20,11 @@ export function FloatingTextTransition() {
       
       setScrollY(currentScrollY);
 
-      // フェーズ判定
-      const phase1Start = windowHeight * 0.7; // 70%で浮遊開始
-      const phase2Start = windowHeight * 1.0; // 100%で暗転開始
-      const phase3Start = windowHeight * 1.3; // 130%でINFO表示
+      // フェーズ判定 - INFOセクションの実際の位置に基づく
+      const phase1Start = windowHeight * 0.6; // 60%で浮遊開始
+      const phase2Start = windowHeight * 0.8; // 80%で暗転開始  
+      const phase3Start = windowHeight * 0.95; // 95%でINFO表示開始
+      const phase3End = windowHeight * 1.1; // 110%で完全にINFOセクション
 
       if (currentScrollY < phase1Start) {
         setCurrentPhase(0);
@@ -31,19 +32,21 @@ export function FloatingTextTransition() {
         setCurrentPhase(1);
       } else if (currentScrollY < phase3Start) {
         setCurrentPhase(2);
-      } else {
+      } else if (currentScrollY < phase3End) {
         setCurrentPhase(3);
+      } else {
+        setCurrentPhase(4); // エフェクト完全終了
       }
 
       // 既存のWHAT WE DO要素を制御
       const whatWeDoElement = document.querySelector('[data-what-we-do]') as HTMLElement;
       if (whatWeDoElement) {
-        if (currentPhase >= 1) {
-          // 浮遊フェーズ以降は元の要素を隠す
+        if (currentPhase >= 1 && currentPhase < 4) {
+          // 浮遊フェーズ〜INFO表示中は元の要素を隠す
           whatWeDoElement.style.opacity = '0';
           whatWeDoElement.style.pointerEvents = 'none';
         } else {
-          // 通常時は表示
+          // 通常時とエフェクト完了後は表示
           whatWeDoElement.style.opacity = '1';
           whatWeDoElement.style.pointerEvents = 'auto';
         }
@@ -67,16 +70,16 @@ export function FloatingTextTransition() {
 
     switch (phase) {
       case 1: // 浮遊フェーズ
-        start = windowHeight * 0.7;
-        end = windowHeight * 1.0;
+        start = windowHeight * 0.6;
+        end = windowHeight * 0.8;
         break;
       case 2: // 暗転フェーズ  
-        start = windowHeight * 1.0;
-        end = windowHeight * 1.3;
+        start = windowHeight * 0.8;
+        end = windowHeight * 0.95;
         break;
       case 3: // INFOフェーズ
-        start = windowHeight * 1.3;
-        end = windowHeight * 1.6;
+        start = windowHeight * 0.95;
+        end = windowHeight * 1.1;
         break;
       default:
         return 0;
@@ -90,6 +93,11 @@ export function FloatingTextTransition() {
   const floatingProgress = getPhaseProgress(1);
   const fadeProgress = getPhaseProgress(2);
   const infoProgress = getPhaseProgress(3);
+
+  // エフェクト完全終了後は何も表示しない
+  if (currentPhase >= 4) {
+    return null;
+  }
 
   return (
     <div className="fixed inset-0 pointer-events-none z-30">
@@ -118,12 +126,12 @@ export function FloatingTextTransition() {
       <div
         className="absolute inset-0 bg-black transition-opacity duration-300"
         style={{
-          opacity: currentPhase >= 2 ? Math.min(0.95, fadeProgress) : 0,
+          opacity: currentPhase >= 2 && currentPhase < 4 ? Math.min(0.95, fadeProgress) : 0,
         }}
       />
 
       {/* INFOセクション表示 */}
-      {currentPhase >= 3 && (
+      {currentPhase === 3 && (
         <div
           className="absolute inset-0 flex items-center justify-center"
           style={{
@@ -154,7 +162,7 @@ export function FloatingTextTransition() {
       )}
 
       {/* 背景グラデーション効果 */}
-      {currentPhase >= 2 && (
+      {currentPhase >= 2 && currentPhase < 4 && (
         <div
           className="absolute inset-0"
           style={{
