@@ -221,8 +221,14 @@ export function ContactSection() {
             <a href="#news" className="hover:text-white">
               INFO
             </a>
+            <a href="#service" className="hover:text-white">
+              SERVICE
+            </a>
             <a href="/works" className="hover:text-white">
               WORK
+            </a>
+            <a href="#recruit" className="hover:text-white">
+              RECRUIT
             </a>
             <a href="#about" className="hover:text-white">
               TEAM

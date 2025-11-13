@@ -9,7 +9,7 @@ export function RecruitSection() {
           <AnimatedSection animation="slideRight">
             <div className="text-center">
               <p className="text-xs uppercase tracking-[0.4em] text-gray-500">Join Us</p>
-              <h2 className="mb-6 text-[clamp(42px,10vw,104px)] leading-none tracking-tight text-black">
+              <h2 className="mb-6 text-[clamp(42px,10vw,104px)] leading-none tracking-tight text-[#d10000]">
                 RECRUIT
               </h2>
               <p className="mb-10 text-base leading-relaxed text-gray-700">
@@ -41,7 +41,7 @@ export function RecruitSection() {
         <div className="hidden gap-16 lg:grid lg:grid-cols-2">
           <AnimatedSection animation="slideRight">
             <div>
-              <h2 className="mb-8 text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-black">
+              <h2 className="mb-8 text-[clamp(48px,10vw,104px)] leading-none tracking-tight text-[#d10000]">
                 RECRUIT
               </h2>
               <p className="mb-8 text-gray-800 leading-relaxed">

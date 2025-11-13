@@ -32,7 +32,7 @@ export function ServiceSection() {
         <AnimatedSection animation="fadeUp">
           <div className="space-y-4">
             <p className="text-xs uppercase tracking-[0.6em] text-gray-400 lg:hidden">Service</p>
-            <h2 className="text-[clamp(42px,9vw,104px)] leading-none tracking-tight text-black">
+            <h2 className="text-[clamp(42px,9vw,104px)] leading-none tracking-tight text-[#d10000]">
               <span className="lg:hidden">事業領域</span>
               <span className="hidden lg:inline">SERVICE</span>
             </h2>
