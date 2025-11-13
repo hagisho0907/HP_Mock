@@ -20,13 +20,17 @@ export function Header() {
   const handleClose = () => setMobileMenuOpen(false);
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-gradient-to-b from-black/100 via-white/50 to-white/10 backdrop-blur-lg">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-white/20 backdrop-blur-sm">
       <div className="container mx-auto px-8 py-12 md:py-16">
         <div className="flex items-center justify-between">
           <Link
             href="/"
             className="text-white tracking-[0.4em]"
-            style={{ fontFamily: "Georgia, serif", letterSpacing: "0.3em" }}
+            style={{ 
+              fontFamily: "Georgia, serif", 
+              letterSpacing: "0.3em",
+              textShadow: "0 0 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)"
+            }}
             onClick={handleClose}
           >
             toito.inc
@@ -38,7 +42,11 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className="text-white uppercase tracking-widest hover:opacity-70 transition-opacity"
-                style={{ fontSize: "11px", letterSpacing: "0.1em" }}
+                style={{ 
+                  fontSize: "11px", 
+                  letterSpacing: "0.1em",
+                  textShadow: "0 0 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)"
+                }}
               >
                 {item.name}
               </Link>
@@ -62,7 +70,11 @@ export function Header() {
                 key={item.name}
                 href={item.href}
                 className="text-white uppercase tracking-widest hover:opacity-70 transition-opacity"
-                style={{ fontSize: "11px", letterSpacing: "0.1em" }}
+                style={{ 
+                  fontSize: "11px", 
+                  letterSpacing: "0.1em",
+                  textShadow: "0 0 4px rgba(0,0,0,0.8), 0 0 8px rgba(0,0,0,0.6)"
+                }}
                 onClick={handleClose}
               >
                 {item.name}
