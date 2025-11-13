@@ -2,7 +2,6 @@ import { AboutSection } from "@/components/about-section";
 import { AdBanner } from "@/components/ad-banner";
 import { ContactSection } from "@/components/contact-section";
 import { Header } from "@/components/header";
-import { HomeInfoTransition } from "@/components/home-info-transition";
 import { HomeSection } from "@/components/home-section";
 import { NewsSection } from "@/components/news-section";
 import { RecruitSection } from "@/components/recruit-section";
@@ -23,7 +22,6 @@ export default function Page() {
       <Header />
       <main className="flex flex-col gap-0">
         <HomeSection />
-        <HomeInfoTransition />
         <NewsSection />
         <ServiceSection />
         <RecruitSection />
