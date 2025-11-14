@@ -38,45 +38,32 @@ export function FloatingTextTransition() {
         setCurrentPhase(4); // エフェクト完全終了
       }
 
-      // 既存のWHAT WE DOコンテナ全体を制御（段階的に消去）
-      let whatWeDoContainer = document.querySelector('[data-what-we-do-container]') as HTMLElement;
-      
-      // data属性が見つからない場合、WHAT WE DOテキストを含む要素を直接検索
-      if (!whatWeDoContainer) {
-        const elements = document.querySelectorAll('h2, h1');
-        elements.forEach(el => {
-          if (el.textContent?.includes('WHAT WE DO')) {
-            whatWeDoContainer = el.closest('section') as HTMLElement || el.parentElement as HTMLElement;
+      // HOMEセクション内のWHAT WE DOを含む全要素を非表示にする
+      const homeSection = document.getElementById('home');
+      if (homeSection) {
+        const whatWeDoElements = homeSection.querySelectorAll('h2, h1, div');
+        whatWeDoElements.forEach(el => {
+          if (el.textContent?.includes('WHAT WE DO') || el.textContent?.includes('toito.inc')) {
+            const targetElement = el as HTMLElement;
+            if (currentPhase === 0) {
+              // 通常時は表示
+              targetElement.style.opacity = '1';
+              targetElement.style.visibility = 'visible';
+              targetElement.style.display = '';
+            } else if (currentPhase >= 1 && currentPhase < 4) {
+              // アニメーション中は非表示
+              targetElement.style.opacity = '0';
+              targetElement.style.visibility = 'hidden';
+              targetElement.style.display = 'none';
+            } else {
+              // エフェクト完了後は復活
+              const endProgress = Math.min(1, (currentScrollY - windowHeight * 1.1) / (windowHeight * 0.1));
+              targetElement.style.opacity = `${endProgress}`;
+              targetElement.style.visibility = endProgress > 0 ? 'visible' : 'hidden';
+              targetElement.style.display = endProgress > 0 ? '' : 'none';
+            }
           }
         });
-      }
-      
-      console.log('whatWeDoContainer found:', whatWeDoContainer);
-      if (whatWeDoContainer) {
-        if (currentPhase === 0) {
-          // 通常時は表示
-          whatWeDoContainer.style.opacity = '1';
-          whatWeDoContainer.style.pointerEvents = 'auto';
-          whatWeDoContainer.style.visibility = 'visible';
-          whatWeDoContainer.style.transform = 'translateY(0px)';
-        } else if (currentPhase === 1) {
-          // アニメーション開始と同時に即座に非表示
-          whatWeDoContainer.style.opacity = '0';
-          whatWeDoContainer.style.pointerEvents = 'none';
-          whatWeDoContainer.style.visibility = 'hidden';
-        } else if (currentPhase >= 2 && currentPhase < 4) {
-          // 暗転〜INFO表示中は完全に隠す
-          whatWeDoContainer.style.opacity = '0';
-          whatWeDoContainer.style.pointerEvents = 'none';
-          whatWeDoContainer.style.visibility = 'hidden';
-        } else {
-          // エフェクト完了後は段階的に復活
-          const endProgress = Math.min(1, (currentScrollY - windowHeight * 1.1) / (windowHeight * 0.1));
-          whatWeDoContainer.style.opacity = `${endProgress}`;
-          whatWeDoContainer.style.pointerEvents = endProgress > 0.5 ? 'auto' : 'none';
-          whatWeDoContainer.style.visibility = 'visible';
-          whatWeDoContainer.style.transform = `translateY(${(1 - endProgress) * 20}px)`;
-        }
       }
     };
 
