@@ -120,7 +120,7 @@ export function FloatingTextTransition() {
       {/* フローティング「WHAT WE DO」セクション全体 - 既存要素と同じスタイル */}
       {(currentPhase === 1 || currentPhase === 2) && (
         <div
-          className="absolute inset-0 flex items-start justify-center pt-[20vh]"
+          className="absolute inset-0 flex items-start justify-center pt-[20vh] transition-all duration-1000 ease-out"
           style={{
             transform: `translateY(${-floatingProgress * 50 + fadeProgress * -100}px) scale(${1 + floatingProgress * 0.2})`,
             opacity: Math.max(0, 1 - fadeProgress * 2),
@@ -156,7 +156,7 @@ export function FloatingTextTransition() {
 
       {/* 暗転オーバーレイ */}
       <div
-        className="absolute inset-0 bg-black transition-opacity duration-300"
+        className="absolute inset-0 bg-black transition-opacity duration-1000 ease-in-out"
         style={{
           opacity: currentPhase >= 2 && currentPhase < 4 ? Math.min(0.95, fadeProgress) : 0,
         }}
@@ -165,7 +165,7 @@ export function FloatingTextTransition() {
       {/* INFOセクション表示 */}
       {currentPhase === 3 && (
         <div
-          className="absolute inset-0 flex items-center justify-center"
+          className="absolute inset-0 flex items-center justify-center transition-all duration-1200 ease-out"
           style={{
             opacity: infoProgress,
             transform: `translateY(${(1 - infoProgress) * 30}px) scale(${0.9 + infoProgress * 0.1})`,
