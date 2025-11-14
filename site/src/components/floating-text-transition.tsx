@@ -20,10 +20,10 @@ export function FloatingTextTransition() {
       
       setScrollY(currentScrollY);
 
-      // フェーズ判定 - カスタムタイミング
+      // フェーズ判定 - INFOをより早く表示
       const phase1Start = windowHeight * 0.1; // 10%で浮遊開始
       const phase2Start = windowHeight * 0.3; // 30%で暗転開始  
-      const phase3Start = windowHeight * 0.5; // 50%でINFO表示開始
+      const phase3Start = windowHeight * 0.4; // 40%でINFO表示開始（早く）
       const phase3End = windowHeight * 0.85; // 85%で完全にINFOセクション
 
       if (currentScrollY < phase1Start) {
@@ -91,10 +91,10 @@ export function FloatingTextTransition() {
         break;
       case 2: // 暗転フェーズ  
         start = windowHeight * 0.3;
-        end = windowHeight * 0.5;
+        end = windowHeight * 0.4;
         break;
       case 3: // INFOフェーズ
-        start = windowHeight * 0.5;
+        start = windowHeight * 0.4;
         end = windowHeight * 0.85;
         break;
       default:
