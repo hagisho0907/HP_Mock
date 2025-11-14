@@ -25,11 +25,11 @@ export function HomeSection() {
 
       <AnimatedSection animation="fadeUp" delay={600}>
         <div className="container relative z-10 mx-auto px-6 pb-12 sm:pb-16 lg:pb-20">
-          <div className="mx-auto max-w-5xl rounded-3xl bg-white/5 px-6 py-10 text-center backdrop-blur-sm sm:px-10 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-none">
-            <h2 
-              data-what-we-do
-              className="mb-6 text-[clamp(36px,12vw,104px)] leading-none tracking-tight text-white lg:mb-8 lg:text-[clamp(48px,10vw,104px)] transition-all duration-500"
-            >
+          <div 
+            data-what-we-do-section
+            className="mx-auto max-w-5xl rounded-3xl bg-white/5 px-6 py-10 text-center backdrop-blur-sm sm:px-10 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-none transition-all duration-500"
+          >
+            <h2 className="mb-6 text-[clamp(36px,12vw,104px)] leading-none tracking-tight text-white lg:mb-8 lg:text-[clamp(48px,10vw,104px)]">
               WHAT WE DO
             </h2>
             <div className="space-y-3 text-sm leading-relaxed text-white/90 sm:text-base sm:leading-loose lg:space-y-2 lg:text-[15px] lg:leading-[1.8]">

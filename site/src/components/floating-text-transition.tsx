@@ -20,11 +20,11 @@ export function FloatingTextTransition() {
       
       setScrollY(currentScrollY);
 
-      // フェーズ判定 - より早めの開始
-      const phase1Start = windowHeight * 0.4; // 40%で浮遊開始
-      const phase2Start = windowHeight * 0.6; // 60%で暗転開始  
-      const phase3Start = windowHeight * 0.8; // 80%でINFO表示開始
-      const phase3End = windowHeight * 0.95; // 95%で完全にINFOセクション
+      // フェーズ判定 - 非常に早めの開始
+      const phase1Start = windowHeight * 0.2; // 20%で浮遊開始
+      const phase2Start = windowHeight * 0.4; // 40%で暗転開始  
+      const phase3Start = windowHeight * 0.6; // 60%でINFO表示開始
+      const phase3End = windowHeight * 0.8; // 80%で完全にINFOセクション
 
       if (currentScrollY < phase1Start) {
         setCurrentPhase(0);
@@ -38,17 +38,17 @@ export function FloatingTextTransition() {
         setCurrentPhase(4); // エフェクト完全終了
       }
 
-      // 既存のWHAT WE DO要素を制御
-      const whatWeDoElement = document.querySelector('[data-what-we-do]') as HTMLElement;
-      if (whatWeDoElement) {
+      // 既存のWHAT WE DOセクション全体を制御
+      const whatWeDoSection = document.querySelector('[data-what-we-do-section]') as HTMLElement;
+      if (whatWeDoSection) {
         if (currentPhase >= 1 && currentPhase < 4) {
-          // 浮遊フェーズ〜INFO表示中は元の要素を隠す
-          whatWeDoElement.style.opacity = '0';
-          whatWeDoElement.style.pointerEvents = 'none';
+          // 浮遊フェーズ〜INFO表示中は元のセクションを隠す
+          whatWeDoSection.style.opacity = '0';
+          whatWeDoSection.style.pointerEvents = 'none';
         } else {
           // 通常時とエフェクト完了後は表示
-          whatWeDoElement.style.opacity = '1';
-          whatWeDoElement.style.pointerEvents = 'auto';
+          whatWeDoSection.style.opacity = '1';
+          whatWeDoSection.style.pointerEvents = 'auto';
         }
       }
     };
@@ -70,16 +70,16 @@ export function FloatingTextTransition() {
 
     switch (phase) {
       case 1: // 浮遊フェーズ
+        start = windowHeight * 0.2;
+        end = windowHeight * 0.4;
+        break;
+      case 2: // 暗転フェーズ  
         start = windowHeight * 0.4;
         end = windowHeight * 0.6;
         break;
-      case 2: // 暗転フェーズ  
+      case 3: // INFOフェーズ
         start = windowHeight * 0.6;
         end = windowHeight * 0.8;
-        break;
-      case 3: // INFOフェーズ
-        start = windowHeight * 0.8;
-        end = windowHeight * 0.95;
         break;
       default:
         return 0;
@@ -101,7 +101,7 @@ export function FloatingTextTransition() {
 
   return (
     <div className="fixed inset-0 pointer-events-none z-30">
-      {/* フローティング「WHAT WE DO」テキスト - 既存要素と同じスタイル */}
+      {/* フローティング「WHAT WE DO」セクション全体 - 既存要素と同じスタイル */}
       {(currentPhase === 1 || currentPhase === 2) && (
         <div
           className="absolute inset-0 flex items-center justify-center"
@@ -110,15 +110,31 @@ export function FloatingTextTransition() {
             opacity: Math.max(0, 1 - fadeProgress * 2),
           }}
         >
-          <h1 
-            className="text-[clamp(36px,12vw,104px)] leading-none tracking-tight text-white lg:text-[clamp(48px,10vw,104px)]"
-            style={{
-              textShadow: '0 0 30px rgba(255,255,255,0.5), 0 0 60px rgba(255,255,255,0.3)',
-              filter: `blur(${fadeProgress * 2}px)`,
-            }}
-          >
-            WHAT WE DO
-          </h1>
+          <div className="text-center max-w-5xl px-6">
+            {/* WHAT WE DOタイトル */}
+            <h1 
+              className="mb-6 text-[clamp(36px,12vw,104px)] leading-none tracking-tight text-white lg:mb-8 lg:text-[clamp(48px,10vw,104px)]"
+              style={{
+                textShadow: '0 0 30px rgba(255,255,255,0.5), 0 0 60px rgba(255,255,255,0.3)',
+                filter: `blur(${fadeProgress * 2}px)`,
+              }}
+            >
+              WHAT WE DO
+            </h1>
+            
+            {/* 説明文 */}
+            <div 
+              className="space-y-3 text-sm leading-relaxed text-white/90 sm:text-base sm:leading-loose lg:space-y-2 lg:text-[15px] lg:leading-[1.8]"
+              style={{
+                textShadow: '0 0 20px rgba(255,255,255,0.3)',
+                filter: `blur(${fadeProgress * 1.5}px)`,
+              }}
+            >
+              <p>toito.incは東京を拠点とする体験型エンターテイメント カンパニー。</p>
+              <p>デジタルテクノロジーを駆使して没入・体験型コンテンツを開発し、</p>
+              <p>それらを体験できる空間やイベントを世界中で展開していきます。</p>
+            </div>
+          </div>
         </div>
       )}
 
