@@ -48,12 +48,10 @@ export function FloatingTextTransition() {
           whatWeDoContainer.style.visibility = 'visible';
           whatWeDoContainer.style.transform = 'translateY(0px)';
         } else if (currentPhase === 1) {
-          // 浮遊フェーズ中は段階的に消失
-          const progress = getPhaseProgress(1);
-          whatWeDoContainer.style.opacity = `${1 - progress}`;
-          whatWeDoContainer.style.transform = `translateY(${progress * 20}px)`;
+          // アニメーション開始と同時に即座に非表示
+          whatWeDoContainer.style.opacity = '0';
           whatWeDoContainer.style.pointerEvents = 'none';
-          whatWeDoContainer.style.visibility = 'visible';
+          whatWeDoContainer.style.visibility = 'hidden';
         } else if (currentPhase >= 2 && currentPhase < 4) {
           // 暗転〜INFO表示中は完全に隠す
           whatWeDoContainer.style.opacity = '0';
