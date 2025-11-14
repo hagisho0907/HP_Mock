@@ -38,19 +38,33 @@ export function FloatingTextTransition() {
         setCurrentPhase(4); // エフェクト完全終了
       }
 
-      // 既存のWHAT WE DOコンテナ全体を制御
+      // 既存のWHAT WE DOコンテナ全体を制御（段階的に消去）
       const whatWeDoContainer = document.querySelector('[data-what-we-do-container]') as HTMLElement;
       if (whatWeDoContainer) {
-        if (currentPhase >= 1 && currentPhase < 4) {
-          // 浮遊フェーズ〜INFO表示中は元のコンテナを完全に隠す
+        if (currentPhase === 0) {
+          // 通常時は表示
+          whatWeDoContainer.style.opacity = '1';
+          whatWeDoContainer.style.pointerEvents = 'auto';
+          whatWeDoContainer.style.visibility = 'visible';
+          whatWeDoContainer.style.transform = 'translateY(0px)';
+        } else if (currentPhase === 1) {
+          // 浮遊フェーズ中は段階的に消失
+          const progress = getPhaseProgress(1);
+          whatWeDoContainer.style.opacity = `${1 - progress}`;
+          whatWeDoContainer.style.transform = `translateY(${progress * 20}px)`;
+          whatWeDoContainer.style.pointerEvents = 'none';
+          whatWeDoContainer.style.visibility = 'visible';
+        } else if (currentPhase >= 2 && currentPhase < 4) {
+          // 暗転〜INFO表示中は完全に隠す
           whatWeDoContainer.style.opacity = '0';
           whatWeDoContainer.style.pointerEvents = 'none';
           whatWeDoContainer.style.visibility = 'hidden';
         } else {
-          // 通常時とエフェクト完了後は表示
+          // エフェクト完了後は復活
           whatWeDoContainer.style.opacity = '1';
           whatWeDoContainer.style.pointerEvents = 'auto';
           whatWeDoContainer.style.visibility = 'visible';
+          whatWeDoContainer.style.transform = 'translateY(0px)';
         }
       }
     };

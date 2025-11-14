@@ -23,7 +23,7 @@ export function HomeSection() {
         </div>
       </AnimatedSection>
 
-      <AnimatedSection animation="fadeUp" delay={600} data-what-we-do-container>
+      <AnimatedSection animation="fadeUp" delay={600} data-what-we-do-container className="transition-all duration-300">
         <div className="container relative z-10 mx-auto px-6 pt-12 pb-12 sm:pt-16 sm:pb-16 lg:pt-24 lg:pb-20">
           <div 
             data-what-we-do-section
