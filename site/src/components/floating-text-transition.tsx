@@ -120,7 +120,7 @@ export function FloatingTextTransition() {
       {/* フローティング「WHAT WE DO」セクション全体 - 既存要素と同じスタイル */}
       {(currentPhase === 1 || currentPhase === 2) && (
         <div
-          className="absolute inset-0 flex items-start justify-center pt-[15vh]"
+          className="absolute inset-0 flex items-start justify-center pt-[20vh]"
           style={{
             transform: `translateY(${-floatingProgress * 50 + fadeProgress * -100}px) scale(${1 + floatingProgress * 0.2})`,
             opacity: Math.max(0, 1 - fadeProgress * 2),
