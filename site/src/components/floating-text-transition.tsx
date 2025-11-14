@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState, useRef, useCallback } from 'react';
 
 export function FloatingTextTransition() {
   const [scrollY, setScrollY] = useState(0);
@@ -10,7 +10,7 @@ export function FloatingTextTransition() {
   const floatingStartTopRef = useRef<number | null>(null);
   const phaseRef = useRef(currentPhase);
 
-  const getWhatWeDoBlock = () => {
+  const getWhatWeDoBlock = useCallback(() => {
     if (typeof document === 'undefined') return null;
     if (!whatWeDoBlockRef.current) {
       const element = document.querySelector<HTMLElement>('[data-what-we-do-block]');
@@ -19,34 +19,34 @@ export function FloatingTextTransition() {
       }
     }
     return whatWeDoBlockRef.current;
-  };
+  }, []);
 
   useEffect(() => {
     setIsMounted(true);
   }, []);
 
+  const updateHomeWhatWeDoVisibility = useCallback((phase: number, transitionProgress = 0) => {
+    const block = getWhatWeDoBlock();
+    if (!block) return;
+
+    const shouldFadeOut = phase >= 1 && phase <= 3;
+    const fadeProgress = shouldFadeOut ? Math.min(1, Math.max(0, transitionProgress)) : 0;
+    const opacity = shouldFadeOut ? Math.max(0, 1 - fadeProgress) : 1;
+    const isHidden = opacity <= 0.02;
+
+    if (!block.style.transition) {
+      block.style.transition = 'opacity 350ms ease, transform 350ms ease';
+    }
+    block.style.willChange = 'opacity, transform';
+    block.style.opacity = `${opacity}`;
+    block.style.transform = shouldFadeOut ? `translateY(${fadeProgress * -24}px)` : '';
+    block.style.visibility = isHidden ? 'hidden' : 'visible';
+    block.style.pointerEvents = isHidden ? 'none' : '';
+    block.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
+  }, [getWhatWeDoBlock]);
+
   useEffect(() => {
     if (!isMounted) return;
-
-    const updateHomeWhatWeDoVisibility = (phase: number, transitionProgress = 0) => {
-      const block = getWhatWeDoBlock();
-      if (!block) return;
-
-      const shouldFadeOut = phase >= 1 && phase <= 3;
-      const fadeProgress = shouldFadeOut ? Math.min(1, Math.max(0, transitionProgress)) : 0;
-      const opacity = shouldFadeOut ? Math.max(0, 1 - fadeProgress) : 1;
-      const isHidden = opacity <= 0.02;
-
-      if (!block.style.transition) {
-        block.style.transition = 'opacity 350ms ease, transform 350ms ease';
-      }
-      block.style.willChange = 'opacity, transform';
-      block.style.opacity = `${opacity}`;
-      block.style.transform = shouldFadeOut ? `translateY(${fadeProgress * -24}px)` : '';
-      block.style.visibility = isHidden ? 'hidden' : 'visible';
-      block.style.pointerEvents = isHidden ? 'none' : '';
-      block.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
-    };
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -113,7 +113,7 @@ export function FloatingTextTransition() {
       floatingStartTopRef.current = null;
       phaseRef.current = 0;
     };
-  }, [isMounted]);
+  }, [isMounted, updateHomeWhatWeDoVisibility, getWhatWeDoBlock]);
 
   useEffect(() => {
     if (!isMounted) return;
@@ -151,7 +151,7 @@ export function FloatingTextTransition() {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, [isMounted]);
+  }, [isMounted, updateHomeWhatWeDoVisibility, getWhatWeDoBlock]);
 
   if (!isMounted) return null;
 
