@@ -28,15 +28,24 @@ export function FloatingTextTransition() {
   useEffect(() => {
     if (!isMounted) return;
 
-    const updateHomeWhatWeDoVisibility = (phase: number) => {
+    const updateHomeWhatWeDoVisibility = (phase: number, transitionProgress = 0) => {
       const block = getWhatWeDoBlock();
       if (!block) return;
 
-      const shouldHide = phase >= 1 && phase <= 3;
-      block.style.opacity = shouldHide ? '0' : '';
-      block.style.visibility = shouldHide ? 'hidden' : '';
-      block.style.pointerEvents = shouldHide ? 'none' : '';
-      block.setAttribute('aria-hidden', shouldHide ? 'true' : 'false');
+      const shouldFadeOut = phase >= 1 && phase <= 3;
+      const fadeProgress = shouldFadeOut ? Math.min(1, Math.max(0, transitionProgress)) : 0;
+      const opacity = shouldFadeOut ? Math.max(0, 1 - fadeProgress) : 1;
+      const isHidden = opacity <= 0.02;
+
+      if (!block.style.transition) {
+        block.style.transition = 'opacity 350ms ease, transform 350ms ease';
+      }
+      block.style.willChange = 'opacity, transform';
+      block.style.opacity = `${opacity}`;
+      block.style.transform = shouldFadeOut ? `translateY(${fadeProgress * -24}px)` : '';
+      block.style.visibility = isHidden ? 'hidden' : 'visible';
+      block.style.pointerEvents = isHidden ? 'none' : '';
+      block.setAttribute('aria-hidden', isHidden ? 'true' : 'false');
     };
 
     const handleScroll = () => {
@@ -74,8 +83,24 @@ export function FloatingTextTransition() {
       }
 
       phaseRef.current = nextPhase;
+      let crossfadeProgress = 0;
+      if (nextPhase >= 1 && nextPhase <= 3) {
+        const range = Math.max(1, phase2Start - phase1Start);
+        if (currentScrollY <= phase1Start) {
+          crossfadeProgress = 0;
+        } else if (currentScrollY >= phase2Start) {
+          crossfadeProgress = 1;
+        } else {
+          crossfadeProgress = (currentScrollY - phase1Start) / range;
+        }
+
+        if (nextPhase >= 2) {
+          crossfadeProgress = 1;
+        }
+      }
+
       setCurrentPhase(nextPhase);
-      updateHomeWhatWeDoVisibility(nextPhase);
+      updateHomeWhatWeDoVisibility(nextPhase, crossfadeProgress);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
@@ -83,7 +108,7 @@ export function FloatingTextTransition() {
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      updateHomeWhatWeDoVisibility(0);
+      updateHomeWhatWeDoVisibility(0, 0);
       whatWeDoBlockRef.current = null;
       floatingStartTopRef.current = null;
       phaseRef.current = 0;
@@ -101,6 +126,27 @@ export function FloatingTextTransition() {
       } else if (phase === 0) {
         floatingStartTopRef.current = null;
       }
+
+      const windowHeight = window.innerHeight;
+      const phase1Start = windowHeight * 0.1;
+      const phase2Start = windowHeight * 0.3;
+      let crossfadeProgress = 0;
+
+      if (phase >= 1 && phase <= 3) {
+        if (window.scrollY <= phase1Start) {
+          crossfadeProgress = 0;
+        } else if (window.scrollY >= phase2Start) {
+          crossfadeProgress = 1;
+        } else {
+          crossfadeProgress = (window.scrollY - phase1Start) / Math.max(1, phase2Start - phase1Start);
+        }
+
+        if (phase >= 2) {
+          crossfadeProgress = 1;
+        }
+      }
+
+      updateHomeWhatWeDoVisibility(phase, crossfadeProgress);
     };
 
     window.addEventListener('resize', handleResize);
@@ -147,6 +193,8 @@ export function FloatingTextTransition() {
     Math.max(0, 1 - Math.min(1, (scrollY - window.innerHeight * 1.1) / (window.innerHeight * 0.1))) : 1;
   const floatingStartTop = floatingStartTopRef.current;
   const floatingPaddingTop = floatingStartTop !== null ? Math.max(0, floatingStartTop) : null;
+  const floatingEntranceOpacity = Math.min(1, floatingProgress * 1.5);
+  const floatingContainerOpacity = floatingEntranceOpacity * Math.max(0, 1 - fadeProgress * 2);
 
   if (currentPhase >= 4 && endFadeProgress <= 0) {
     return null;
@@ -161,7 +209,7 @@ export function FloatingTextTransition() {
           style={{
             paddingTop: floatingPaddingTop !== null ? `${floatingPaddingTop}px` : '20vh',
             transform: `translateY(${-floatingProgress * 50 + fadeProgress * -100}px) scale(${1 + floatingProgress * 0.2})`,
-            opacity: Math.max(0, 1 - fadeProgress * 2),
+            opacity: floatingContainerOpacity,
           }}
         >
           <div className="text-center max-w-5xl px-6">
