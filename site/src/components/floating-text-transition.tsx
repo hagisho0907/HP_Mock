@@ -60,11 +60,12 @@ export function FloatingTextTransition() {
           whatWeDoContainer.style.pointerEvents = 'none';
           whatWeDoContainer.style.visibility = 'hidden';
         } else {
-          // エフェクト完了後は復活
-          whatWeDoContainer.style.opacity = '1';
-          whatWeDoContainer.style.pointerEvents = 'auto';
+          // エフェクト完了後は段階的に復活
+          const endProgress = Math.min(1, (currentScrollY - windowHeight * 1.1) / (windowHeight * 0.1));
+          whatWeDoContainer.style.opacity = `${endProgress}`;
+          whatWeDoContainer.style.pointerEvents = endProgress > 0.5 ? 'auto' : 'none';
           whatWeDoContainer.style.visibility = 'visible';
-          whatWeDoContainer.style.transform = 'translateY(0px)';
+          whatWeDoContainer.style.transform = `translateY(${(1 - endProgress) * 20}px)`;
         }
       }
     };
@@ -110,8 +111,11 @@ export function FloatingTextTransition() {
   const fadeProgress = getPhaseProgress(2);
   const infoProgress = getPhaseProgress(3);
 
-  // エフェクト完全終了後は何も表示しない
-  if (currentPhase >= 4) {
+  // エフェクト完全終了時のフェードアウト処理
+  const endFadeProgress = currentPhase >= 4 ? 
+    Math.max(0, 1 - Math.min(1, (scrollY - window.innerHeight * 1.1) / (window.innerHeight * 0.1))) : 1;
+
+  if (currentPhase >= 4 && endFadeProgress <= 0) {
     return null;
   }
 
@@ -163,12 +167,12 @@ export function FloatingTextTransition() {
       />
 
       {/* INFOセクション表示 */}
-      {currentPhase === 3 && (
+      {(currentPhase === 3 || currentPhase >= 4) && (
         <div
           className="absolute inset-0 flex items-center justify-center transition-all duration-1200 ease-out"
           style={{
-            opacity: infoProgress,
-            transform: `translateY(${(1 - infoProgress) * 30}px) scale(${0.9 + infoProgress * 0.1})`,
+            opacity: currentPhase >= 4 ? endFadeProgress : infoProgress,
+            transform: `translateY(${(1 - (currentPhase >= 4 ? 1 : infoProgress)) * 30}px) scale(${0.9 + (currentPhase >= 4 ? 1 : infoProgress) * 0.1})`,
           }}
         >
           <div className="text-center">
