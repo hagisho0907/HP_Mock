@@ -1,11 +1,25 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 export function FloatingTextTransition() {
   const [scrollY, setScrollY] = useState(0);
   const [currentPhase, setCurrentPhase] = useState(0); // 0: normal, 1: floating, 2: fade-out, 3: info
   const [isMounted, setIsMounted] = useState(false);
+  const whatWeDoBlockRef = useRef<HTMLElement | null>(null);
+  const floatingStartTopRef = useRef<number | null>(null);
+  const phaseRef = useRef(currentPhase);
+
+  const getWhatWeDoBlock = () => {
+    if (typeof document === 'undefined') return null;
+    if (!whatWeDoBlockRef.current) {
+      const element = document.querySelector<HTMLElement>('[data-what-we-do-block]');
+      if (element) {
+        whatWeDoBlockRef.current = element;
+      }
+    }
+    return whatWeDoBlockRef.current;
+  };
 
   useEffect(() => {
     setIsMounted(true);
@@ -15,7 +29,7 @@ export function FloatingTextTransition() {
     if (!isMounted) return;
 
     const updateHomeWhatWeDoVisibility = (phase: number) => {
-      const block = document.querySelector<HTMLElement>('[data-what-we-do-block]');
+      const block = getWhatWeDoBlock();
       if (!block) return;
 
       const shouldHide = phase >= 1 && phase <= 3;
@@ -50,6 +64,16 @@ export function FloatingTextTransition() {
         nextPhase = 4; // エフェクト完全終了
       }
 
+      const block = getWhatWeDoBlock();
+      if (nextPhase >= 1) {
+        if (floatingStartTopRef.current === null && block) {
+          floatingStartTopRef.current = block.getBoundingClientRect().top;
+        }
+      } else if (floatingStartTopRef.current !== null) {
+        floatingStartTopRef.current = null;
+      }
+
+      phaseRef.current = nextPhase;
       setCurrentPhase(nextPhase);
       updateHomeWhatWeDoVisibility(nextPhase);
     };
@@ -60,7 +84,27 @@ export function FloatingTextTransition() {
     return () => {
       window.removeEventListener('scroll', handleScroll);
       updateHomeWhatWeDoVisibility(0);
+      whatWeDoBlockRef.current = null;
+      floatingStartTopRef.current = null;
+      phaseRef.current = 0;
     };
+  }, [isMounted]);
+
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const handleResize = () => {
+      const phase = phaseRef.current;
+      const block = getWhatWeDoBlock();
+      if (block && phase >= 1 && phase <= 3) {
+        floatingStartTopRef.current = block.getBoundingClientRect().top;
+      } else if (phase === 0) {
+        floatingStartTopRef.current = null;
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   }, [isMounted]);
 
   if (!isMounted) return null;
@@ -101,6 +145,8 @@ export function FloatingTextTransition() {
   // エフェクト完全終了時のフェードアウト処理
   const endFadeProgress = currentPhase >= 4 ? 
     Math.max(0, 1 - Math.min(1, (scrollY - window.innerHeight * 1.1) / (window.innerHeight * 0.1))) : 1;
+  const floatingStartTop = floatingStartTopRef.current;
+  const floatingPaddingTop = floatingStartTop !== null ? Math.max(0, floatingStartTop) : null;
 
   if (currentPhase >= 4 && endFadeProgress <= 0) {
     return null;
@@ -111,8 +157,9 @@ export function FloatingTextTransition() {
       {/* フローティング「WHAT WE DO」セクション全体 - 既存要素と同じスタイル */}
       {(currentPhase === 1 || currentPhase === 2) && (
         <div
-          className="absolute inset-0 flex items-start justify-center pt-[20vh] transition-all duration-1000 ease-out"
+          className="absolute inset-0 flex items-start justify-center transition-all duration-1000 ease-out"
           style={{
+            paddingTop: floatingPaddingTop !== null ? `${floatingPaddingTop}px` : '20vh',
             transform: `translateY(${-floatingProgress * 50 + fadeProgress * -100}px) scale(${1 + floatingProgress * 0.2})`,
             opacity: Math.max(0, 1 - fadeProgress * 2),
           }}
