@@ -42,7 +42,7 @@ export function HomeSection() {
       </AnimatedSection>
 
       <div
-        className="absolute right-6 top-1/2 hidden -translate-y-1/2 animate-float lg:block"
+        className="absolute right-6 top-1/4 hidden -translate-y-1/2 animate-float lg:block"
         style={{ zIndex: 100 }}
       >
         <div className="flex flex-col items-center gap-6">
