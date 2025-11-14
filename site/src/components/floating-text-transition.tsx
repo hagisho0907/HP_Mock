@@ -38,17 +38,19 @@ export function FloatingTextTransition() {
         setCurrentPhase(4); // エフェクト完全終了
       }
 
-      // 既存のWHAT WE DOセクション全体を制御
-      const whatWeDoSection = document.querySelector('[data-what-we-do-section]') as HTMLElement;
-      if (whatWeDoSection) {
+      // 既存のWHAT WE DOコンテナ全体を制御
+      const whatWeDoContainer = document.querySelector('[data-what-we-do-container]') as HTMLElement;
+      if (whatWeDoContainer) {
         if (currentPhase >= 1 && currentPhase < 4) {
-          // 浮遊フェーズ〜INFO表示中は元のセクションを隠す
-          whatWeDoSection.style.opacity = '0';
-          whatWeDoSection.style.pointerEvents = 'none';
+          // 浮遊フェーズ〜INFO表示中は元のコンテナを完全に隠す
+          whatWeDoContainer.style.opacity = '0';
+          whatWeDoContainer.style.pointerEvents = 'none';
+          whatWeDoContainer.style.visibility = 'hidden';
         } else {
           // 通常時とエフェクト完了後は表示
-          whatWeDoSection.style.opacity = '1';
-          whatWeDoSection.style.pointerEvents = 'auto';
+          whatWeDoContainer.style.opacity = '1';
+          whatWeDoContainer.style.pointerEvents = 'auto';
+          whatWeDoContainer.style.visibility = 'visible';
         }
       }
     };

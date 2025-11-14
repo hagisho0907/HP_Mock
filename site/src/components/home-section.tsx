@@ -4,7 +4,7 @@ export function HomeSection() {
   return (
     <section
       id="home"
-      className="relative flex min-h-[720px] flex-col overflow-hidden bg-black/40 pt-24 pb-16 sm:pt-28 sm:pb-20 lg:h-[100vh] lg:min-h-[900px] lg:justify-between lg:pt-48 lg:pb-24"
+      className="relative flex min-h-[720px] flex-col overflow-hidden bg-black/40 pt-24 pb-16 sm:pt-28 sm:pb-20 lg:h-[150vh] lg:min-h-[1200px] lg:justify-between lg:pt-48 lg:pb-24"
     >
       <AnimatedSection animation="fadeIn" delay={300}>
         <div className="container relative z-10 mx-auto px-6">
@@ -23,7 +23,7 @@ export function HomeSection() {
         </div>
       </AnimatedSection>
 
-      <AnimatedSection animation="fadeUp" delay={600}>
+      <AnimatedSection animation="fadeUp" delay={600} data-what-we-do-container>
         <div className="container relative z-10 mx-auto px-6 pb-12 sm:pb-16 lg:pb-20">
           <div 
             data-what-we-do-section
