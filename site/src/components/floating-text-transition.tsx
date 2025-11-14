@@ -39,7 +39,19 @@ export function FloatingTextTransition() {
       }
 
       // 既存のWHAT WE DOコンテナ全体を制御（段階的に消去）
-      const whatWeDoContainer = document.querySelector('[data-what-we-do-container]') as HTMLElement;
+      let whatWeDoContainer = document.querySelector('[data-what-we-do-container]') as HTMLElement;
+      
+      // data属性が見つからない場合、WHAT WE DOテキストを含む要素を直接検索
+      if (!whatWeDoContainer) {
+        const elements = document.querySelectorAll('h2, h1');
+        elements.forEach(el => {
+          if (el.textContent?.includes('WHAT WE DO')) {
+            whatWeDoContainer = el.closest('section') as HTMLElement || el.parentElement as HTMLElement;
+          }
+        });
+      }
+      
+      console.log('whatWeDoContainer found:', whatWeDoContainer);
       if (whatWeDoContainer) {
         if (currentPhase === 0) {
           // 通常時は表示
