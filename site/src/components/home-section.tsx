@@ -24,7 +24,10 @@ export function HomeSection() {
       </AnimatedSection>
 
       <AnimatedSection animation="fadeUp" delay={600} data-what-we-do-container className="transition-all duration-300">
-        <div className="container relative z-10 mx-auto px-6 pt-12 pb-12 sm:pt-16 sm:pb-16 lg:pt-24 lg:pb-20">
+        <div 
+          data-what-we-do-block
+          className="container relative z-10 mx-auto px-6 pt-12 pb-12 sm:pt-16 sm:pb-16 lg:pt-24 lg:pb-20"
+        >
           <div 
             data-what-we-do-section
             className="mx-auto max-w-5xl rounded-3xl bg-white/5 px-6 py-10 text-center backdrop-blur-sm sm:px-10 lg:rounded-none lg:bg-transparent lg:px-0 lg:py-0 lg:backdrop-blur-none transition-all duration-500"

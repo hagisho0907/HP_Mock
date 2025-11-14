@@ -1,11 +1,10 @@
 'use client';
 
 import { useScrollAnimation } from '@/hooks/use-scroll-animation';
-import { ReactNode } from 'react';
+import { HTMLAttributes, ReactNode } from 'react';
 
-interface AnimatedSectionProps {
+interface AnimatedSectionProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
-  className?: string;
   animation?: 'fadeUp' | 'fadeIn' | 'slideLeft' | 'slideRight' | 'scale';
   delay?: number;
 }
@@ -14,7 +13,9 @@ export function AnimatedSection({
   children, 
   className = '', 
   animation = 'fadeUp',
-  delay = 0 
+  delay = 0,
+  style,
+  ...rest
 }: AnimatedSectionProps) {
   const { elementRef, isVisible } = useScrollAnimation({ threshold: 0.1 });
 
@@ -45,7 +46,8 @@ export function AnimatedSection({
     <div 
       ref={elementRef}
       className={`${getAnimationClass()} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ transitionDelay: `${delay}ms`, ...style }}
+      {...rest}
     >
       {children}
     </div>

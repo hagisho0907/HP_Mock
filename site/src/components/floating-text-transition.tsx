@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
 export function FloatingTextTransition() {
   const [scrollY, setScrollY] = useState(0);
@@ -14,6 +14,17 @@ export function FloatingTextTransition() {
   useEffect(() => {
     if (!isMounted) return;
 
+    const updateHomeWhatWeDoVisibility = (phase: number) => {
+      const block = document.querySelector<HTMLElement>('[data-what-we-do-block]');
+      if (!block) return;
+
+      const shouldHide = phase >= 1 && phase <= 3;
+      block.style.opacity = shouldHide ? '0' : '';
+      block.style.visibility = shouldHide ? 'hidden' : '';
+      block.style.pointerEvents = shouldHide ? 'none' : '';
+      block.setAttribute('aria-hidden', shouldHide ? 'true' : 'false');
+    };
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
       const windowHeight = window.innerHeight;
@@ -26,51 +37,30 @@ export function FloatingTextTransition() {
       const phase3Start = windowHeight * 0.4; // 40%でINFO表示開始（早く）
       const phase3End = windowHeight * 1.1; // 110%で完全にINFOセクション
 
+      let nextPhase = 0;
       if (currentScrollY < phase1Start) {
-        setCurrentPhase(0);
+        nextPhase = 0;
       } else if (currentScrollY < phase2Start) {
-        setCurrentPhase(1);
+        nextPhase = 1;
       } else if (currentScrollY < phase3Start) {
-        setCurrentPhase(2);
+        nextPhase = 2;
       } else if (currentScrollY < phase3End) {
-        setCurrentPhase(3);
+        nextPhase = 3;
       } else {
-        setCurrentPhase(4); // エフェクト完全終了
+        nextPhase = 4; // エフェクト完全終了
       }
 
-      // HOMEセクション内のWHAT WE DOを含む全要素を非表示にする
-      const homeSection = document.getElementById('home');
-      if (homeSection) {
-        const whatWeDoElements = homeSection.querySelectorAll('h2, h1, div');
-        whatWeDoElements.forEach(el => {
-          if (el.textContent?.includes('WHAT WE DO') || el.textContent?.includes('toito.inc')) {
-            const targetElement = el as HTMLElement;
-            if (currentPhase === 0) {
-              // 通常時は表示
-              targetElement.style.opacity = '1';
-              targetElement.style.visibility = 'visible';
-              targetElement.style.display = '';
-            } else if (currentPhase >= 1 && currentPhase < 4) {
-              // アニメーション中は非表示
-              targetElement.style.opacity = '0';
-              targetElement.style.visibility = 'hidden';
-              targetElement.style.display = 'none';
-            } else {
-              // エフェクト完了後は復活
-              const endProgress = Math.min(1, (currentScrollY - windowHeight * 1.1) / (windowHeight * 0.1));
-              targetElement.style.opacity = `${endProgress}`;
-              targetElement.style.visibility = endProgress > 0 ? 'visible' : 'hidden';
-              targetElement.style.display = endProgress > 0 ? '' : 'none';
-            }
-          }
-        });
-      }
+      setCurrentPhase(nextPhase);
+      updateHomeWhatWeDoVisibility(nextPhase);
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
     
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      updateHomeWhatWeDoVisibility(0);
+    };
   }, [isMounted]);
 
   if (!isMounted) return null;
